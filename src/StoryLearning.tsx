@@ -2,25 +2,33 @@ import { useState } from "react";
 
 const storyStages = [
   {
-    text: "You are an explorer who finds an ancient map in the jungle. It hints at a hidden treasure, but challenges lie ahead.",
+    text: "Lena and Jake were cleaning Grandma’s attic when Jake’s foot hit something. \"What’s this?\" he asked, pulling out an old, dusty envelope from under a wooden chest.\n\nLena carefully opened the letter and read aloud:\n\n‘If you seek adventure and a prize so neat, follow the path to Willow Creek.\nLook for the oak with roots so wide, where secrets in the hollow hide.’\n\n\"Wow!\" Jake exclaimed. \"This sounds like a treasure hunt!\"\n\nLena nodded excitedly. \"We have to find that oak tree!\"",
     checkpoint: {
-      question: "The map says the treasure is 200 meters north and 300 meters west. How far is it in a straight line?",
-      answer: "360",
-      type: "number",
-    },
-  },
-  {
-    text: "You decipher the map and continue your journey. Suddenly, you come across an ancient ruin with inscriptions on the walls.",
-    checkpoint: {
-      question: "The inscription is written in an ancient script. Which civilization is most known for its hieroglyphs?",
-      answer: "Egyptians",
+      question: "Where do Lena and Jake need to go to start their adventure?",
+      answer: "Willow Creek",
       type: "text",
     },
   },
   {
-    text: "You move forward and discover a hidden chamber. The treasure lies ahead, but you take a moment to reflect on your journey.",
+    text: "The kids arrived at Willow Creek and searched for the biggest oak tree.\n\"This one has the widest roots!\" Jake said, pointing.\n\nCarved into the bark were two numbers: 42 and 58. Below it, an arrow pointed down to the hollow.\n\nLena thought for a moment. \"I think we need to solve a math problem to open the next clue!\"",
     checkpoint: {
-      question: "Write a short diary entry describing your adventure so far.",
+      question: "Add the two numbers carved on the tree. What is the sum?",
+      answer: "100",
+      type: "number",
+    },
+  },
+  {
+    text: "Inside the hollow, they found a single feather tied to another note:\n\n‘Follow the owner of this feather, swift and bright,\nWhere it nests, you’ll find the next sight.’\n\nJake looked at the feather. \"I think this came from a bird!\"\n\nLena nodded. \"But which one? We need to figure out which bird is swift and bright!\"",
+    checkpoint: {
+      question: "Which bird is known for being fast and colorful?",
+      answer: "Hummingbird",
+      type: "text",
+    },
+  },
+  {
+    text: "The kids followed the hummingbirds to a small wooden house near the creek. Inside, they found an old box filled with postcards, a compass, and a golden locket. The last note read:\n\n‘The real treasure isn’t gold, but the stories we share and the adventures we dare!’\n\nLena smiled. \"This belonged to my great-grandfather! He must have hidden it here years ago!\"",
+    checkpoint: {
+      question: "Write a short letter to your best friend about your own treasure hunt adventure. What would you say?",
       answer: "*any*",
       type: "textarea",
     },
