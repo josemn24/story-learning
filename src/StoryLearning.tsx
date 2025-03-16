@@ -53,36 +53,42 @@ function StoryLearningApp() {
   };
   
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
-      <div className="bg-white shadow-lg rounded-lg p-6 max-w-lg">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
+      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full flex flex-col md:flex-row">
         {currentStage < storyStages.length ? (
           <>
-            <p className="text-lg mb-4">{storyStages[currentStage].text}</p>
-            <p className="font-semibold">{storyStages[currentStage].checkpoint.question}</p>
-            {storyStages[currentStage].checkpoint.type === "textarea" ? (
-              <textarea
-                className="w-full p-2 border rounded mt-2"
-                value={userAnswer}
-                onChange={(e) => setUserAnswer(e.target.value)}
-              />
-            ) : (
-              <input
-                type="text"
-                className="w-full p-2 border rounded mt-2"
-                value={userAnswer}
-                onChange={(e) => setUserAnswer(e.target.value)}
-              />
-            )}
-            {error && <p className="text-red-500 mt-2">{error}</p>}
-            <button
-              className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-              onClick={handleSubmit}
-            >
-              Submit
-            </button>
+            <div className="w-full md:w-1/2 p-4 border-r border-gray-300">
+              <h2 className="text-xl font-bold mb-4">Story</h2>
+              <p className="text-lg">{storyStages[currentStage].text}</p>
+            </div>
+            <div className="w-full md:w-1/2 p-4">
+              <h2 className="text-xl font-bold mb-4">Checkpoint</h2>
+              <p className="font-semibold mb-2">{storyStages[currentStage].checkpoint.question}</p>
+              {storyStages[currentStage].checkpoint.type === "textarea" ? (
+                <textarea
+                  className="w-full p-2 border rounded mt-2"
+                  value={userAnswer}
+                  onChange={(e) => setUserAnswer(e.target.value)}
+                />
+              ) : (
+                <input
+                  type="text"
+                  className="w-full p-2 border rounded mt-2"
+                  value={userAnswer}
+                  onChange={(e) => setUserAnswer(e.target.value)}
+                />
+              )}
+              {error && <p className="text-red-500 mt-2">{error}</p>}
+              <button
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
+                onClick={handleSubmit}
+              >
+                Submit
+              </button>
+            </div>
           </>
         ) : (
-          <h2 className="text-xl font-bold">Congratulations! You completed the story.</h2>
+          <h2 className="text-xl font-bold text-center w-full">Congratulations! You completed the story.</h2>
         )}
       </div>
     </div>
