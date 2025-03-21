@@ -1,98 +1,168 @@
-import { useState } from "react";
+import { useState } from 'react';
 
-const storyStages = [
+// Types for our story system
+type QuestionType = 'multiple-choice' | 'short-answer' | 'creative-writing';
+
+interface Checkpoint {
+  type: QuestionType;
+  question: string;
+  answer?: string | number;
+  options?: string[];
+}
+
+interface StoryStage {
+  content: string;
+  checkpoint: Checkpoint;
+}
+
+// Story content
+const storyStages: StoryStage[] = [
   {
-    text: "Lena and Jake were cleaning Grandma’s attic when Jake’s foot hit something. \"What’s this?\" he asked, pulling out an old, dusty envelope from under a wooden chest.\n\nLena carefully opened the letter and read aloud:\n\n‘If you seek adventure and a prize so neat, follow the path to Willow Creek.\nLook for the oak with roots so wide, where secrets in the hollow hide.’\n\n\"Wow!\" Jake exclaimed. \"This sounds like a treasure hunt!\"\n\nLena nodded excitedly. \"We have to find that oak tree!\"",
+    content: "You are an explorer who finds an ancient map in the jungle. It hints at a hidden treasure, but challenges lie ahead.",
     checkpoint: {
-      question: "Where do Lena and Jake need to go to start their adventure?",
-      answer: "Willow Creek",
-      type: "text",
+      type: 'short-answer',
+      question: "The map says the treasure is 200 meters north and 300 meters west. How far is it in a straight line?",
+      answer: 360,
     },
   },
   {
-    text: "The kids arrived at Willow Creek and searched for the biggest oak tree.\n\"This one has the widest roots!\" Jake said, pointing.\n\nCarved into the bark were two numbers: 42 and 58. Below it, an arrow pointed down to the hollow.\n\nLena thought for a moment. \"I think we need to solve a math problem to open the next clue!\"",
+    content: "You decipher the map and continue your journey. Suddenly, you come across an ancient ruin with inscriptions on the walls.",
     checkpoint: {
-      question: "Add the two numbers carved on the tree. What is the sum?",
-      answer: "100",
-      type: "number",
+      type: 'multiple-choice',
+      question: "The inscription is written in an ancient script. Which civilization is most known for its hieroglyphs?",
+      answer: "Egyptians",
+      options: ["Mayans", "Romans", "Egyptians", "Greeks"],
     },
   },
   {
-    text: "Inside the hollow, they found a single feather tied to another note:\n\n‘Follow the owner of this feather, swift and bright,\nWhere it nests, you’ll find the next sight.’\n\nJake looked at the feather. \"I think this came from a bird!\"\n\nLena nodded. \"But which one? We need to figure out which bird is swift and bright!\"",
+    content: "You move forward and discover a hidden chamber. The treasure lies ahead, but you take a moment to reflect on your journey.",
     checkpoint: {
-      question: "Which bird is known for being fast and colorful?",
-      answer: "Hummingbird",
-      type: "text",
-    },
-  },
-  {
-    text: "The kids followed the hummingbirds to a small wooden house near the creek. Inside, they found an old box filled with postcards, a compass, and a golden locket. The last note read:\n\n‘The real treasure isn’t gold, but the stories we share and the adventures we dare!’\n\nLena smiled. \"This belonged to my great-grandfather! He must have hidden it here years ago!\"",
-    checkpoint: {
-      question: "Write a short letter to your best friend about your own treasure hunt adventure. What would you say?",
-      answer: "*any*",
-      type: "textarea",
+      type: 'creative-writing',
+      question: "Write a short diary entry describing your adventure so far.",
     },
   },
 ];
 
-function StoryLearningApp() {
+const StoryLearning = () => {
   const [currentStage, setCurrentStage] = useState(0);
-  const [userAnswer, setUserAnswer] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  
-  const handleSubmit = () => {
+  const [userAnswer, setUserAnswer] = useState('');
+  const [error, setError] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
+
+  const validateAnswer = (answer: string) => {
     const checkpoint = storyStages[currentStage].checkpoint;
+    let isCorrect: boolean;
     
-    if (checkpoint.type === "textarea" || userAnswer.trim().toLowerCase() === checkpoint.answer.toLowerCase()) {
-      setCurrentStage(currentStage + 1);
-      setUserAnswer("");
-      setError(null);
-    } else {
-      setError("Incorrect answer. Try again.");
+    switch (checkpoint.type) {
+      case 'multiple-choice':
+      case 'short-answer':
+        isCorrect = String(answer).toLowerCase() === String(checkpoint.answer).toLowerCase();
+        if (!isCorrect) {
+          setError('That\'s not quite right. Try again!');
+          return false;
+        }
+        break;
+      case 'creative-writing':
+        // Any input is valid for creative writing
+        if (answer.trim().length < 10) {
+          setError('Please write a bit more!');
+          return false;
+        }
+        break;
+    }
+    return true;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    if (validateAnswer(userAnswer)) {
+      if (currentStage === storyStages.length - 1) {
+        setIsComplete(true);
+      } else {
+        setCurrentStage(prev => prev + 1);
+        setUserAnswer('');
+      }
     }
   };
-  
+
+  if (isComplete) {
+    return (
+      <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+        <h1 className="text-3xl font-bold text-green-600 mb-4">Congratulations!</h1>
+        <p className="text-lg">You've completed the story and all its challenges!</p>
+      </div>
+    );
+  }
+
+  const currentStoryStage = storyStages[currentStage];
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full flex flex-col md:flex-row">
-        {currentStage < storyStages.length ? (
-          <>
-            <div className="w-full md:w-1/2 p-4 border-r border-gray-300">
-              <h2 className="text-xl font-bold mb-4">Story</h2>
-              <p className="text-lg">{storyStages[currentStage].text}</p>
-            </div>
-            <div className="w-full md:w-1/2 p-4">
-              <h2 className="text-xl font-bold mb-4">Checkpoint</h2>
-              <p className="font-semibold mb-2">{storyStages[currentStage].checkpoint.question}</p>
-              {storyStages[currentStage].checkpoint.type === "textarea" ? (
-                <textarea
-                  className="w-full p-2 border rounded mt-2"
-                  value={userAnswer}
-                  onChange={(e) => setUserAnswer(e.target.value)}
-                />
-              ) : (
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded mt-2"
-                  value={userAnswer}
-                  onChange={(e) => setUserAnswer(e.target.value)}
-                />
-              )}
-              {error && <p className="text-red-500 mt-2">{error}</p>}
-              <button
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
-            </div>
-          </>
-        ) : (
-          <h2 className="text-xl font-bold text-center w-full">Congratulations! You completed the story.</h2>
-        )}
+    <div className="max-w-2xl mx-auto p-6 bg-white rounded-lg shadow-lg">
+      <div className="mb-8">
+        <h2 className="text-2xl font-bold mb-4">The Lost Explorer</h2>
+        <div className="prose">
+          <p className="text-lg mb-4">{currentStoryStage.content}</p>
+        </div>
+      </div>
+
+      <div className="bg-gray-50 p-6 rounded-lg">
+        <h3 className="text-xl font-semibold mb-4">Checkpoint Challenge</h3>
+        <form onSubmit={handleSubmit}>
+          <div className="mb-4">
+            <p className="text-lg mb-3">{currentStoryStage.checkpoint.question}</p>
+            
+            {currentStoryStage.checkpoint.type === 'multiple-choice' && (
+              <div className="space-y-2">
+                {currentStoryStage.checkpoint.options?.map((option) => (
+                  <label key={option} className="block">
+                    <input
+                      type="radio"
+                      name="answer"
+                      value={option}
+                      checked={userAnswer === option}
+                      onChange={(e) => setUserAnswer(e.target.value)}
+                      className="mr-2"
+                    />
+                    {option}
+                  </label>
+                ))}
+              </div>
+            )}
+
+            {(currentStoryStage.checkpoint.type === 'short-answer' || 
+              currentStoryStage.checkpoint.type === 'creative-writing') && (
+              <textarea
+                value={userAnswer}
+                onChange={(e) => setUserAnswer(e.target.value)}
+                className="w-full p-2 border rounded-lg"
+                rows={currentStoryStage.checkpoint.type === 'creative-writing' ? 4 : 1}
+                placeholder={currentStoryStage.checkpoint.type === 'creative-writing' 
+                  ? "Write your story here..."
+                  : "Enter your answer"}
+              />
+            )}
+          </div>
+
+          {error && (
+            <div className="text-red-500 mb-4">{error}</div>
+          )}
+
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Submit Answer
+          </button>
+        </form>
+      </div>
+
+      <div className="mt-4 text-sm text-gray-600">
+        Progress: Stage {currentStage + 1} of {storyStages.length}
       </div>
     </div>
   );
-}
+};
 
-export default StoryLearningApp;
+export default StoryLearning;
