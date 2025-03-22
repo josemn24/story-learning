@@ -49,6 +49,7 @@ const StoryLearning = () => {
   const [error, setError] = useState('');
   const [isComplete, setIsComplete] = useState(false);
   const [completedStages, setCompletedStages] = useState<number[]>([]);
+  const [showChallenge, setShowChallenge] = useState(false);
 
   const validateAnswer = (answer: string) => {
     const checkpoint = storyStages[currentStage].checkpoint;
@@ -83,8 +84,8 @@ const StoryLearning = () => {
       if (currentStage === storyStages.length - 1) {
         setIsComplete(true);
       } else {
-        // Automatically navigate to next stage
         setCurrentStage(prev => prev + 1);
+        setShowChallenge(false);
         setUserAnswer('');
         setError('');
       }
@@ -94,6 +95,7 @@ const StoryLearning = () => {
   const handleNextPage = () => {
     if (currentStage < storyStages.length - 1) {
       setCurrentStage(prev => prev + 1);
+      setShowChallenge(false);
       setUserAnswer('');
       setError('');
     }
@@ -102,13 +104,21 @@ const StoryLearning = () => {
   const handlePreviousPage = () => {
     if (currentStage > 0) {
       setCurrentStage(prev => prev - 1);
+      setShowChallenge(false);
       setUserAnswer('');
       setError('');
     }
   };
 
+  const handleStartChallenge = () => {
+    if (isStageCompleted(currentStage)) {
+      handleNextPage();
+    } else {
+      setShowChallenge(true);
+    }
+  };
+
   const isStageCompleted = (stage: number) => completedStages.includes(stage);
-  const canProceedToNext = isStageCompleted(currentStage);
 
   if (isComplete) {
     return (
@@ -120,53 +130,22 @@ const StoryLearning = () => {
   }
 
   const currentStoryStage = storyStages[currentStage];
+  const isCurrentStageCompleted = isStageCompleted(currentStage);
 
-  return (
-    <div className="max-w-6xl mx-auto p-6">
-      <div className="flex gap-8">
-        {/* Left Page - Story Content */}
-        <div className="flex-1 bg-white rounded-lg shadow-lg p-8 border-r-2 border-gray-200">
-          <div className="mb-8">
-            <h2 className="text-2xl font-serif font-bold mb-6 text-gray-800">The Lost Explorer</h2>
-            <div className="prose prose-lg">
-              <p className="text-lg leading-relaxed text-gray-700">{currentStoryStage.content}</p>
-            </div>
-          </div>
-          <div className="mt-8 flex items-center justify-between">
-            <div className="text-sm text-gray-500 italic">
-              Page {currentStage + 1} of {storyStages.length}
-            </div>
-            <div className="flex gap-4">
-              <button
-                onClick={handlePreviousPage}
-                disabled={currentStage === 0}
-                className={`px-4 py-2 rounded-lg border transition-colors ${
-                  currentStage === 0
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
-                }`}
-              >
-                Previous
-              </button>
-              <button
-                onClick={handleNextPage}
-                disabled={!canProceedToNext}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  canProceedToNext
-                    ? 'bg-blue-600 text-white hover:bg-blue-700'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                Next
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Right Page - Questions */}
-        <div className="flex-1 bg-white rounded-lg shadow-lg p-8">
+  if (showChallenge) {
+    return (
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="bg-white rounded-lg shadow-lg p-8">
           <div className="bg-gray-50 p-6 rounded-lg border border-gray-100">
-            <h3 className="text-xl font-serif font-semibold mb-6 text-gray-800">Checkpoint Challenge</h3>
+            <div className="flex justify-between items-center mb-6">
+              <h3 className="text-xl font-serif font-semibold text-gray-800">Checkpoint Challenge</h3>
+              <button
+                onClick={() => setShowChallenge(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                ← Back to Story
+              </button>
+            </div>
             <form onSubmit={handleSubmit}>
               <div className="mb-6">
                 <p className="text-lg mb-4 text-gray-700">{currentStoryStage.checkpoint.question}</p>
@@ -209,16 +188,67 @@ const StoryLearning = () => {
 
               <button
                 type="submit"
-                disabled={isStageCompleted(currentStage)}
+                disabled={isCurrentStageCompleted}
                 className={`w-full px-6 py-3 rounded-lg transition-colors font-medium ${
-                  isStageCompleted(currentStage)
+                  isCurrentStageCompleted
                     ? 'bg-green-600 text-white cursor-not-allowed'
                     : 'bg-blue-600 text-white hover:bg-blue-700'
                 }`}
               >
-                {isStageCompleted(currentStage) ? 'Completed ✓' : 'Submit Answer'}
+                {isCurrentStageCompleted ? 'Completed ✓' : 'Submit Answer'}
               </button>
             </form>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="max-w-6xl mx-auto p-6">
+      <div className="flex gap-8">
+        {/* Left Page - Story Content */}
+        <div className="flex-1 bg-white rounded-lg shadow-lg p-8 border-r-2 border-gray-200">
+          <div className="mb-8">
+            <h2 className="text-2xl font-serif font-bold mb-6 text-gray-800">The Lost Explorer</h2>
+            <div className="prose prose-lg">
+              <p className="text-lg leading-relaxed text-gray-700">{currentStoryStage.content}</p>
+            </div>
+          </div>
+          <div className="mt-8 flex items-center justify-between">
+            <div className="text-sm text-gray-500 italic">
+              Page {currentStage + 1} of {storyStages.length}
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentStage === 0}
+                className={`px-4 py-2 rounded-lg border transition-colors ${
+                  currentStage === 0
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
+                }`}
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleStartChallenge}
+                className={`px-4 py-2 rounded-lg transition-colors ${
+                  isCurrentStageCompleted
+                    ? 'bg-green-600 text-white hover:bg-green-700'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
+              >
+                {isCurrentStageCompleted ? 'Next Stage →' : 'Start Challenge'}
+              </button>
+            </div>
+          </div>
+        </div>
+
+        {/* Right Page - Empty or Placeholder */}
+        <div className="flex-1 bg-white rounded-lg shadow-lg p-8">
+          <div className="h-full flex items-center justify-center">
+            <p className="text-gray-400 italic">Turn the page to continue...</p>
           </div>
         </div>
       </div>
