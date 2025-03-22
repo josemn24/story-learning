@@ -48,6 +48,7 @@ const StoryLearning = () => {
   const [userAnswer, setUserAnswer] = useState('');
   const [error, setError] = useState('');
   const [isComplete, setIsComplete] = useState(false);
+  const [completedStages, setCompletedStages] = useState<number[]>([]);
 
   const validateAnswer = (answer: string) => {
     const checkpoint = storyStages[currentStage].checkpoint;
@@ -78,14 +79,36 @@ const StoryLearning = () => {
     setError('');
 
     if (validateAnswer(userAnswer)) {
+      setCompletedStages(prev => [...prev, currentStage]);
       if (currentStage === storyStages.length - 1) {
         setIsComplete(true);
       } else {
+        // Automatically navigate to next stage
         setCurrentStage(prev => prev + 1);
         setUserAnswer('');
+        setError('');
       }
     }
   };
+
+  const handleNextPage = () => {
+    if (currentStage < storyStages.length - 1) {
+      setCurrentStage(prev => prev + 1);
+      setUserAnswer('');
+      setError('');
+    }
+  };
+
+  const handlePreviousPage = () => {
+    if (currentStage > 0) {
+      setCurrentStage(prev => prev - 1);
+      setUserAnswer('');
+      setError('');
+    }
+  };
+
+  const isStageCompleted = (stage: number) => completedStages.includes(stage);
+  const canProceedToNext = isStageCompleted(currentStage);
 
   if (isComplete) {
     return (
@@ -109,8 +132,34 @@ const StoryLearning = () => {
               <p className="text-lg leading-relaxed text-gray-700">{currentStoryStage.content}</p>
             </div>
           </div>
-          <div className="mt-8 text-sm text-gray-500 italic">
-            Page {currentStage + 1} of {storyStages.length}
+          <div className="mt-8 flex items-center justify-between">
+            <div className="text-sm text-gray-500 italic">
+              Page {currentStage + 1} of {storyStages.length}
+            </div>
+            <div className="flex gap-4">
+              <button
+                onClick={handlePreviousPage}
+                disabled={currentStage === 0}
+                className={`px-4 py-2 rounded-lg border transition-colors ${
+                  currentStage === 0
+                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                    : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
+                }`}
+              >
+                Previous
+              </button>
+              <button
+                onClick={handleNextPage}
+                disabled={!canProceedToNext}
+                className={`px-4 py-2 rounded-lg transition-colors ${
+                  canProceedToNext
+                    ? 'bg-blue-600 text-white hover:bg-blue-700'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                Next
+              </button>
+            </div>
           </div>
         </div>
 
@@ -160,9 +209,14 @@ const StoryLearning = () => {
 
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+                disabled={isStageCompleted(currentStage)}
+                className={`w-full px-6 py-3 rounded-lg transition-colors font-medium ${
+                  isStageCompleted(currentStage)
+                    ? 'bg-green-600 text-white cursor-not-allowed'
+                    : 'bg-blue-600 text-white hover:bg-blue-700'
+                }`}
               >
-                Submit Answer
+                {isStageCompleted(currentStage) ? 'Completed ✓' : 'Submit Answer'}
               </button>
             </form>
           </div>
