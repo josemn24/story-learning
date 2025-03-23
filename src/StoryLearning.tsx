@@ -13,6 +13,10 @@ interface Checkpoint {
 interface StoryStage {
   content: string;
   checkpoint: Checkpoint;
+  image?: {
+    src: string;
+    alt: string;
+  };
 }
 
 // Story content
@@ -24,6 +28,10 @@ const storyStages: StoryStage[] = [
       question: "The map says the treasure is 200 meters north and 300 meters west. How far is it in a straight line?",
       answer: 360,
     },
+    image: {
+      src: "/images/stage1.png",
+      alt: "An ancient treasure map with mysterious markings"
+    }
   },
   {
     content: "You decipher the map and continue your journey. Suddenly, you come across an ancient ruin with inscriptions on the walls.",
@@ -33,6 +41,10 @@ const storyStages: StoryStage[] = [
       answer: "Egyptians",
       options: ["Mayans", "Romans", "Egyptians", "Greeks"],
     },
+    image: {
+      src: "/images/stage2.png",
+      alt: "Ancient ruins with hieroglyphic inscriptions"
+    }
   },
   {
     content: "You move forward and discover a hidden chamber. The treasure lies ahead, but you take a moment to reflect on your journey.",
@@ -206,50 +218,63 @@ const StoryLearning = () => {
 
   return (
     <div className="max-w-6xl mx-auto p-6">
-      <div className="flex gap-8">
+      {/* Title */}
+      <h1 className="text-3xl font-serif font-bold mb-8 text-gray-800">The Lost Explorer</h1>
+      
+      {/* Book Layout */}
+      <div className="flex gap-8 mb-6">
         {/* Left Page - Story Content */}
-        <div className="flex-1 bg-white rounded-lg shadow-lg p-8 border-r-2 border-gray-200">
-          <div className="mb-8">
-            <h2 className="text-2xl font-serif font-bold mb-6 text-gray-800">The Lost Explorer</h2>
-            <div className="prose prose-lg">
-              <p className="text-lg leading-relaxed text-gray-700">{currentStoryStage.content}</p>
-            </div>
-          </div>
-          <div className="mt-8 flex items-center justify-between">
-            <div className="text-sm text-gray-500 italic">
-              Page {currentStage + 1} of {storyStages.length}
-            </div>
-            <div className="flex gap-4">
-              <button
-                onClick={handlePreviousPage}
-                disabled={currentStage === 0}
-                className={`px-4 py-2 rounded-lg border transition-colors ${
-                  currentStage === 0
-                    ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                    : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
-                }`}
-              >
-                Previous
-              </button>
-              <button
-                onClick={handleStartChallenge}
-                className={`px-4 py-2 rounded-lg transition-colors ${
-                  isCurrentStageCompleted
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-blue-600 text-white hover:bg-blue-700'
-                }`}
-              >
-                {isCurrentStageCompleted ? 'Next Stage →' : 'Start Challenge'}
-              </button>
-            </div>
+        <div className="flex-1 bg-white rounded-tl-lg rounded-bl-lg shadow-lg p-8 border-r-2 border-gray-200">
+          <div className="prose prose-lg">
+            <p className="text-lg leading-relaxed text-gray-700">{currentStoryStage.content}</p>
           </div>
         </div>
 
-        {/* Right Page - Empty or Placeholder */}
-        <div className="flex-1 bg-white rounded-lg shadow-lg p-8">
+        {/* Right Page - Image or Placeholder */}
+        <div className="flex-1 bg-white rounded-tr-lg rounded-br-lg shadow-lg p-8">
           <div className="h-full flex items-center justify-center">
-            <p className="text-gray-400 italic">Turn the page to continue...</p>
+            {currentStoryStage.image ? (
+              <div className="relative w-full h-full">
+                <img
+                  src={currentStoryStage.image.src}
+                  alt={currentStoryStage.image.alt}
+                  className="object-contain w-full h-full rounded-lg"
+                />
+              </div>
+            ) : (
+              <p className="text-gray-400 italic">Turn the page to continue...</p>
+            )}
           </div>
+        </div>
+      </div>
+
+      {/* Navigation Controls */}
+      <div className="flex justify-end items-center gap-6">
+        <div className="text-sm text-gray-500 italic">
+          Page {currentStage + 1} of {storyStages.length}
+        </div>
+        <div className="flex gap-4">
+          <button
+            onClick={handlePreviousPage}
+            disabled={currentStage === 0}
+            className={`px-4 py-2 rounded-lg border transition-colors ${
+              currentStage === 0
+                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
+            }`}
+          >
+            Previous
+          </button>
+          <button
+            onClick={handleStartChallenge}
+            className={`px-4 py-2 rounded-lg transition-colors ${
+              isCurrentStageCompleted
+                ? 'bg-green-600 text-white hover:bg-green-700'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
+            }`}
+          >
+            {isCurrentStageCompleted ? 'Next Stage →' : 'Start Challenge'}
+          </button>
         </div>
       </div>
     </div>
