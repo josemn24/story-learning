@@ -254,33 +254,33 @@ const StoryLearning = () => {
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex justify-end items-center gap-6">
+      <div className="flex justify-between items-center">
+        <button
+          onClick={handlePreviousPage}
+          disabled={currentStage === 0}
+          className={`px-4 py-2 rounded-lg border transition-colors ${
+            currentStage === 0
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
+          }`}
+        >
+          ← Previous
+        </button>
+
         <div className="text-sm text-gray-500 italic">
           Page {currentStage + 1} of {storyStages.length}
         </div>
-        <div className="flex gap-4">
-          <button
-            onClick={handlePreviousPage}
-            disabled={currentStage === 0}
-            className={`px-4 py-2 rounded-lg border transition-colors ${
-              currentStage === 0
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
-            }`}
-          >
-            Previous
-          </button>
-          <button
-            onClick={handleStartChallenge}
-            className={`px-4 py-2 rounded-lg transition-colors ${
-              isCurrentStageCompleted
-                ? 'bg-green-600 text-white hover:bg-green-700'
-                : 'bg-blue-600 text-white hover:bg-blue-700'
-            }`}
-          >
-            {isCurrentStageCompleted ? 'Next Stage →' : 'Start Challenge'}
-          </button>
-        </div>
+
+        <button
+          onClick={handleStartChallenge}
+          className={`px-4 py-2 rounded-lg transition-colors ${
+            isCurrentStageCompleted
+              ? 'bg-green-600 text-white hover:bg-green-700'
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+          }`}
+        >
+          {isCurrentStageCompleted ? 'Next Stage →' : 'Start Challenge'}
+        </button>
       </div>
     </div>
   );
