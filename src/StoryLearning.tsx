@@ -226,13 +226,13 @@ const StoryLearning = () => {
         {/* Left Page - Story Content */}
         <div className="flex-1 bg-white rounded-tl-lg rounded-bl-lg shadow-lg p-8 border-r-2 border-gray-200">
           <div className="prose prose-lg">
-            <p className="text-lg leading-relaxed text-gray-700">{currentStoryStage.content}</p>
+            <p className="text-lg leading-relaxed text-gray-700 text-left">{currentStoryStage.content}</p>
           </div>
         </div>
 
         {/* Right Page - Image or Placeholder */}
         <div className="flex-1 bg-white rounded-tr-lg rounded-br-lg shadow-lg p-8">
-          <div className="h-full flex items-center justify-center">
+          <div className="h-full flex flex-col justify-center">
             {currentStoryStage.image ? (
               <div className="relative w-full h-full">
                 <img
