@@ -219,31 +219,36 @@ const StoryLearning = () => {
   return (
     <div className="max-w-6xl mx-auto p-6">
       {/* Title */}
-      <h1 className="text-3xl font-serif font-bold mb-8 text-gray-800">The Lost Explorer</h1>
+      <h1 className="text-3xl font-serif font-bold mb-8 text-center text-gray-800">The Lost Explorer</h1>
       
       {/* Book Layout */}
-      <div className="flex gap-8 mb-6">
-        {/* Left Page - Story Content */}
-        <div className="flex-1 bg-white rounded-tl-lg rounded-bl-lg shadow-lg p-8 border-r-2 border-gray-200">
-          <div className="prose prose-lg">
-            <p className="text-lg leading-relaxed text-gray-700 text-left">{currentStoryStage.content}</p>
+      <div className="bg-white rounded-lg shadow-lg mb-6">
+        <div className="flex">
+          {/* Left Page - Story Content */}
+          <div className="flex-1 p-8">
+            <div className="prose prose-lg">
+              <p className="text-lg leading-relaxed text-gray-700 text-left">{currentStoryStage.content}</p>
+            </div>
           </div>
-        </div>
 
-        {/* Right Page - Image or Placeholder */}
-        <div className="flex-1 bg-white rounded-tr-lg rounded-br-lg shadow-lg p-8">
-          <div className="h-full flex flex-col justify-center">
-            {currentStoryStage.image ? (
-              <div className="relative w-full h-full">
-                <img
-                  src={currentStoryStage.image.src}
-                  alt={currentStoryStage.image.alt}
-                  className="object-contain w-full h-full rounded-lg"
-                />
-              </div>
-            ) : (
-              <p className="text-gray-400 italic">Turn the page to continue...</p>
-            )}
+          {/* Center Separator */}
+          <div className="w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
+
+          {/* Right Page - Image or Placeholder */}
+          <div className="flex-1 p-8">
+            <div className="h-full flex flex-col justify-center">
+              {currentStoryStage.image ? (
+                <div className="relative w-full h-full">
+                  <img
+                    src={currentStoryStage.image.src}
+                    alt={currentStoryStage.image.alt}
+                    className="object-contain w-full h-full rounded-lg"
+                  />
+                </div>
+              ) : (
+                <p className="text-gray-400 italic text-left">Turn the page to continue...</p>
+              )}
+            </div>
           </div>
         </div>
       </div>
