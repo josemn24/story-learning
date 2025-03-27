@@ -1,4 +1,5 @@
 import { StoryStage } from '../types';
+import { useState } from 'react';
 
 interface StageChallengeProps {
   stage: StoryStage;
@@ -25,6 +26,32 @@ const StageChallenge = ({
   setUserAnswer,
   error,
 }: StageChallengeProps) => {
+  const [hasSeenExplanation, setHasSeenExplanation] = useState(false);
+
+  if (!hasSeenExplanation && !isStageCompleted) {
+    return (
+      <div className="max-w-6xl mx-auto p-4 md:p-6">
+        <div className="bg-white rounded-lg shadow-lg p-8">
+          <div className="bg-gray-50 p-6 rounded-lg border border-gray-100">
+            <div className="text-center">
+              <h3 className="text-xl font-serif font-semibold text-gray-800 mb-4">Ready for the Challenge?</h3>
+              <p className="text-gray-600 mb-6">
+                To continue your journey through the story, you'll need to complete this challenge. 
+                It will help you understand and remember the key elements of this chapter.
+              </p>
+              <button
+                onClick={() => setHasSeenExplanation(true)}
+                className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
+              >
+                I Understand, Show Challenge →
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6">
       <div className="bg-white rounded-lg shadow-lg p-8">
