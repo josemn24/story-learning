@@ -2,7 +2,6 @@ import { StoryStage } from '../types';
 
 interface StageChallengeProps {
   stage: StoryStage;
-  onBack: () => void;
   onNext: () => void;
   onPrevious: () => void;
   onSubmit: (e: React.FormEvent) => void;
@@ -16,7 +15,6 @@ interface StageChallengeProps {
 
 const StageChallenge = ({
   stage,
-  onBack,
   onNext,
   onPrevious,
   onSubmit,
@@ -33,12 +31,6 @@ const StageChallenge = ({
         <div className="bg-gray-50 p-6 rounded-lg border border-gray-100">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-serif font-semibold text-gray-800">Checkpoint Challenge</h3>
-            <button
-              onClick={onBack}
-              className="text-gray-500 hover:text-gray-700"
-            >
-              ← Back to Story
-            </button>
           </div>
           <form onSubmit={onSubmit}>
             <div className="mb-6">
@@ -119,36 +111,34 @@ const StageChallenge = ({
           </form>
 
           {/* Navigation Controls */}
-          {isStageCompleted && (
-            <div className="mt-8 pt-6 border-t border-gray-200">
-              <div className="flex flex-row justify-between items-center gap-4 sm:gap-0">
-                <button
-                  onClick={onPrevious}
-                  disabled={currentStage === 0}
-                  className={`w-auto px-4 py-2 rounded-lg border transition-colors ${
-                    currentStage === 0
-                      ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                      : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
-                  }`}
-                >
-                  <span className="sm:hidden">←</span>
-                  <span className="hidden sm:inline">← Previous</span>
-                </button>
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <div className="flex flex-row justify-between items-center gap-4 sm:gap-0">
+              <button
+                onClick={onPrevious}
+                className="w-auto px-4 py-2 rounded-lg border bg-white text-gray-700 hover:bg-gray-50 border-gray-200 transition-colors"
+              >
+                <span className="sm:hidden">←</span>
+                <span className="hidden sm:inline">← Previous</span>
+              </button>
 
-                <div className="text-sm text-gray-500 italic">
-                  Page {currentStage + 1} of {totalStages}
-                </div>
-
-                <button
-                  onClick={onNext}
-                  className="w-auto px-4 py-2 rounded-lg transition-colors bg-green-600 text-white hover:bg-green-700"
-                >
-                  <span className="sm:hidden">→</span>
-                  <span className="hidden sm:inline">Next Stage →</span>
-                </button>
+              <div className="text-sm text-gray-500 italic">
+                Page {currentStage + 1} of {totalStages}
               </div>
+
+              <button
+                onClick={onNext}
+                disabled={!isStageCompleted}
+                className={`w-auto px-4 py-2 rounded-lg transition-colors ${
+                  isStageCompleted
+                    ? 'bg-green-600 text-white hover:bg-green-700'
+                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+                }`}
+              >
+                <span className="sm:hidden">→</span>
+                <span className="hidden sm:inline">Next Stage →</span>
+              </button>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>

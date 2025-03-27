@@ -128,9 +128,8 @@ const StoryLearning = () => {
     return (
       <StageChallenge
         stage={currentStoryStage}
-        onBack={() => setShowChallenge(false)}
         onNext={handleNextStage}
-        onPrevious={handlePreviousPage}
+        onPrevious={() => setShowChallenge(false)}
         onSubmit={handleSubmit}
         currentStage={currentStage}
         totalStages={storyStages.length}
