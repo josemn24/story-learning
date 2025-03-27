@@ -219,10 +219,10 @@ const StoryLearning = () => {
   return (
     <div className="max-w-6xl mx-auto p-6">
       {/* Title */}
-      <h1 className="text-3xl font-serif font-bold mb-8 text-center text-gray-800">The Lost Explorer</h1>
+      <h1 className="text-sm mb-4 text-left text-gray-500">The Lost Explorer</h1>
       
       {/* Book Layout */}
-      <div className="bg-white rounded-lg shadow-lg mb-6">
+      <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
         <div className="flex">
           {/* Left Page - Story Content */}
           <div className="flex-1 p-8">
