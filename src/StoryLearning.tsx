@@ -217,25 +217,25 @@ const StoryLearning = () => {
   }
 
   return (
-    <div className="max-w-6xl mx-auto p-6">
+    <div className="max-w-6xl mx-auto p-4 md:p-6">
       {/* Title */}
-      <h1 className="text-sm mb-4 text-left text-gray-500">The Lost Explorer</h1>
+      <h1 className="text-sm mb-6 md:mb-4 text-left text-gray-500">The Lost Explorer</h1>
       
       {/* Book Layout */}
       <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           {/* Left Page - Story Content */}
-          <div className="flex-1 p-8">
+          <div className="flex-1 p-6 md:p-8">
             <div className="prose prose-lg">
               <p className="text-lg leading-relaxed text-gray-700 text-left">{currentStoryStage.content}</p>
             </div>
           </div>
 
-          {/* Center Separator */}
-          <div className="w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
+          {/* Center Separator - Only visible on desktop */}
+          <div className="hidden md:block w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
 
           {/* Right Page - Image or Placeholder */}
-          <div className="flex-1 p-8">
+          <div className="flex-1 p-6 md:p-8 border-t lg:border-t-0 border-gray-200">
             <div className="h-full flex flex-col justify-center">
               {currentStoryStage.image ? (
                 <div className="relative w-full h-full">
@@ -254,17 +254,18 @@ const StoryLearning = () => {
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-row justify-between items-center gap-4 sm:gap-0">
         <button
           onClick={handlePreviousPage}
           disabled={currentStage === 0}
-          className={`px-4 py-2 rounded-lg border transition-colors ${
+          className={`w-auto px-4 py-2 rounded-lg border transition-colors ${
             currentStage === 0
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
           }`}
         >
-          ← Previous
+          <span className="sm:hidden">←</span>
+          <span className="hidden sm:inline">← Previous</span>
         </button>
 
         <div className="text-sm text-gray-500 italic">
@@ -273,13 +274,16 @@ const StoryLearning = () => {
 
         <button
           onClick={handleStartChallenge}
-          className={`px-4 py-2 rounded-lg transition-colors ${
+          className={`w-auto px-4 py-2 rounded-lg transition-colors ${
             isCurrentStageCompleted
               ? 'bg-green-600 text-white hover:bg-green-700'
               : 'bg-blue-600 text-white hover:bg-blue-700'
           }`}
         >
-          {isCurrentStageCompleted ? 'Next Stage →' : 'Start Challenge'}
+          <span className="sm:hidden">→</span>
+          <span className="hidden sm:inline">
+            {isCurrentStageCompleted ? 'Next Stage →' : 'Start Challenge'}
+          </span>
         </button>
       </div>
     </div>
