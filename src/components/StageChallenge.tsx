@@ -43,7 +43,7 @@ const StageChallenge = ({
                 onClick={() => setHasSeenExplanation(true)}
                 className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
               >
-                I Understand, Show Challenge →
+                Start Challenge →
               </button>
             </div>
           </div>
@@ -119,20 +119,12 @@ const StageChallenge = ({
               <div className="text-red-500 mb-4 p-3 bg-red-50 rounded-lg">{error}</div>
             )}
 
-            {!isStageCompleted ? (
+            {!isStageCompleted && (
               <button
                 type="submit"
                 className="w-full px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
               >
                 Submit Answer
-              </button>
-            ) : (
-              <button
-                type="button"
-                onClick={onNext}
-                className="w-full px-6 py-3 rounded-lg transition-colors font-medium bg-green-600 text-white hover:bg-green-700"
-              >
-                Next Stage →
               </button>
             )}
           </form>
