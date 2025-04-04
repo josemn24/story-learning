@@ -6,8 +6,6 @@ interface StageChallengeProps {
   onNext: () => void;
   onPrevious: () => void;
   onSubmit: (e: React.FormEvent) => void;
-  currentStage: number;
-  totalStages: number;
   isStageCompleted: boolean;
   userAnswer: string;
   setUserAnswer: (answer: string) => void;
@@ -19,8 +17,6 @@ const StageChallenge = ({
   onNext,
   onPrevious,
   onSubmit,
-  currentStage,
-  totalStages,
   isStageCompleted,
   userAnswer,
   setUserAnswer,
@@ -33,7 +29,7 @@ const StageChallenge = ({
       <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
-            <h3 className="text-xl font-serif font-semibold text-gray-800">Checkpoint Challenge</h3>
+            <h3 className="text-xl font-semibold text-gray-800">Checkpoint Challenge</h3>
           </div>
           <form onSubmit={onSubmit}>
             <div className="mb-6">
@@ -119,10 +115,6 @@ const StageChallenge = ({
           <span className="hidden sm:inline">← Previous</span>
         </button>
 
-        <div className="text-sm text-gray-500 italic">
-          Page {currentStage + 1} of {totalStages}
-        </div>
-
         <button
           onClick={onNext}
           disabled={!isStageCompleted}
@@ -142,7 +134,7 @@ const StageChallenge = ({
         <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)] flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
             <div className="text-center">
-              <h3 className="text-xl font-serif font-semibold text-gray-800 mb-4">Ready for the Challenge?</h3>
+              <h3 className="text-xl font-semibold text-gray-800 mb-4">Ready for the Challenge?</h3>
               <p className="text-gray-600 mb-6">
                 To continue your journey through the story, you'll need to complete this challenge. 
                 It will help you understand and remember the key elements of this chapter.

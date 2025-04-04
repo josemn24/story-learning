@@ -126,8 +126,6 @@ const StoryLearning = () => {
         onNext={handleNextStage}
         onPrevious={() => setShowChallenge(false)}
         onSubmit={handleSubmit}
-        currentStage={currentStage}
-        totalStages={storyStages.length}
         isStageCompleted={isCurrentStageCompleted}
         userAnswer={userAnswer}
         setUserAnswer={setUserAnswer}
