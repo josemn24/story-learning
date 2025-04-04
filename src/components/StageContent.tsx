@@ -1,4 +1,5 @@
 import { StoryStage } from '../types';
+import NavigationControls from './NavigationControls';
 
 interface StageContentProps {
   stage: StoryStage;
@@ -55,38 +56,14 @@ const StageContent = ({
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex flex-row justify-between items-center gap-4 sm:gap-0">
-        <button
-          onClick={onPrevious}
-          disabled={currentStage === 0}
-          className={`w-auto px-4 py-2 rounded-lg border transition-colors cursor-pointer ${
-            currentStage === 0
-              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
-              : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
-          }`}
-        >
-          <span className="sm:hidden">←</span>
-          <span className="hidden sm:inline">← Previous</span>
-        </button>
-
-        <div className="text-sm text-gray-500 italic">
-          Page {currentStage + 1} of {totalStages}
-        </div>
-
-        <button
-          onClick={onNext}
-          className={`w-auto px-4 py-2 rounded-lg transition-colors cursor-pointer ${
-            isStageCompleted
-              ? 'bg-green-600 text-white hover:bg-green-700'
-              : 'bg-blue-600 text-white hover:bg-blue-700'
-          }`}
-        >
-          <span className="sm:hidden">→</span>
-          <span className="hidden sm:inline">
-            {isStageCompleted ? 'View Solution →' : 'Next →'}
-          </span>
-        </button>
-      </div>
+      <NavigationControls
+        onPrevious={onPrevious}
+        onNext={onNext}
+        currentStage={currentStage}
+        totalStages={totalStages}
+        isNextDisabled={false}
+        nextButtonText={isStageCompleted ? 'View Solution →' : 'Next →'}
+      />
     </div>
   );
 };

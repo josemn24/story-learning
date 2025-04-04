@@ -1,5 +1,6 @@
 import { StoryStage } from '../types';
 import { useState } from 'react';
+import NavigationControls from './NavigationControls';
 
 interface StageChallengeProps {
   stage: StoryStage;
@@ -106,28 +107,12 @@ const StageChallenge = ({
       </div>
 
       {/* Navigation Controls */}
-      <div className="flex flex-row justify-between items-center gap-4 sm:gap-0">
-        <button
-          onClick={onPrevious}
-          className="w-auto px-4 py-2 rounded-lg border bg-white text-gray-700 hover:bg-gray-50 border-gray-200 transition-colors cursor-pointer"
-        >
-          <span className="sm:hidden">←</span>
-          <span className="hidden sm:inline">← Previous</span>
-        </button>
-
-        <button
-          onClick={onNext}
-          disabled={!isStageCompleted}
-          className={`w-auto px-4 py-2 rounded-lg transition-colors cursor-pointer ${
-            isStageCompleted
-              ? 'bg-green-600 text-white hover:bg-green-700'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-          }`}
-        >
-          <span className="sm:hidden">→</span>
-          <span className="hidden sm:inline">Next Stage →</span>
-        </button>
-      </div>
+      <NavigationControls
+        onPrevious={onPrevious}
+        onNext={onNext}
+        isNextDisabled={!isStageCompleted}
+        nextButtonText="Next Stage →"
+      />
 
       {/* Explanation Modal */}
       {!hasSeenExplanation && !isStageCompleted && (
