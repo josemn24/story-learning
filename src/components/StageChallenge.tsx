@@ -30,7 +30,7 @@ const StageChallenge = ({
 
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6">
-      <div className="bg-white rounded-lg shadow-lg p-8">
+      <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
         <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-serif font-semibold text-gray-800">Checkpoint Challenge</h3>
@@ -99,44 +99,42 @@ const StageChallenge = ({
               <div className="flex justify-center sm:justify-end">
                 <button
                   type="submit"
-                  className="w-full sm:w-auto px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
+                  className="w-full sm:w-auto px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
                 >
                   Check
                 </button>
               </div>
             )}
           </form>
-
-          {/* Navigation Controls */}
-          <div className="mt-8 pt-6 border-t border-gray-200">
-            <div className="flex flex-row justify-between items-center gap-4 sm:gap-0">
-              <button
-                onClick={onPrevious}
-                className="w-auto px-4 py-2 rounded-lg border bg-white text-gray-700 hover:bg-gray-50 border-gray-200 transition-colors"
-              >
-                <span className="sm:hidden">←</span>
-                <span className="hidden sm:inline">← Previous</span>
-              </button>
-
-              <div className="text-sm text-gray-500 italic">
-                Page {currentStage + 1} of {totalStages}
-              </div>
-
-              <button
-                onClick={onNext}
-                disabled={!isStageCompleted}
-                className={`w-auto px-4 py-2 rounded-lg transition-colors ${
-                  isStageCompleted
-                    ? 'bg-green-600 text-white hover:bg-green-700'
-                    : 'bg-gray-100 text-gray-400 cursor-not-allowed'
-                }`}
-              >
-                <span className="sm:hidden">→</span>
-                <span className="hidden sm:inline">Next Stage →</span>
-              </button>
-            </div>
-          </div>
         </div>
+      </div>
+
+      {/* Navigation Controls */}
+      <div className="flex flex-row justify-between items-center gap-4 sm:gap-0">
+        <button
+          onClick={onPrevious}
+          className="w-auto px-4 py-2 rounded-lg border bg-white text-gray-700 hover:bg-gray-50 border-gray-200 transition-colors cursor-pointer"
+        >
+          <span className="sm:hidden">←</span>
+          <span className="hidden sm:inline">← Previous</span>
+        </button>
+
+        <div className="text-sm text-gray-500 italic">
+          Page {currentStage + 1} of {totalStages}
+        </div>
+
+        <button
+          onClick={onNext}
+          disabled={!isStageCompleted}
+          className={`w-auto px-4 py-2 rounded-lg transition-colors cursor-pointer ${
+            isStageCompleted
+              ? 'bg-green-600 text-white hover:bg-green-700'
+              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+          }`}
+        >
+          <span className="sm:hidden">→</span>
+          <span className="hidden sm:inline">Next Stage →</span>
+        </button>
       </div>
 
       {/* Explanation Modal */}
@@ -151,7 +149,7 @@ const StageChallenge = ({
               </p>
               <button
                 onClick={() => setHasSeenExplanation(true)}
-                className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
+                className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
               >
                 Start Challenge →
               </button>

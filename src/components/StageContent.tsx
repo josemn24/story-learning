@@ -59,7 +59,7 @@ const StageContent = ({
         <button
           onClick={onPrevious}
           disabled={currentStage === 0}
-          className={`w-auto px-4 py-2 rounded-lg border transition-colors ${
+          className={`w-auto px-4 py-2 rounded-lg border transition-colors cursor-pointer ${
             currentStage === 0
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200'
@@ -75,7 +75,7 @@ const StageContent = ({
 
         <button
           onClick={onNext}
-          className={`w-auto px-4 py-2 rounded-lg transition-colors ${
+          className={`w-auto px-4 py-2 rounded-lg transition-colors cursor-pointer ${
             isStageCompleted
               ? 'bg-green-600 text-white hover:bg-green-700'
               : 'bg-blue-600 text-white hover:bg-blue-700'
