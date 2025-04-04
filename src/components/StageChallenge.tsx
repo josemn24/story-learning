@@ -101,7 +101,7 @@ const StageChallenge = ({
                   type="submit"
                   className="w-full sm:w-auto px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
                 >
-                  Check
+                  Check Answer
                 </button>
               </div>
             )}
@@ -161,4 +161,4 @@ const StageChallenge = ({
   );
 };
 
-export default StageChallenge; 
+export default StageChallenge;

@@ -77,14 +77,7 @@ const StoryLearning = () => {
 
     if (validateAnswer(userAnswer)) {
       setCompletedStages(prev => [...prev, currentStage]);
-      if (currentStage === storyStages.length - 1) {
-        setIsComplete(true);
-      } else {
-        setCurrentStage(prev => prev + 1);
-        setShowChallenge(false);
-        setUserAnswer('');
-        setError('');
-      }
+      setError('');
     }
   };
 
@@ -107,6 +100,8 @@ const StoryLearning = () => {
       setShowChallenge(false);
       setUserAnswer('');
       setError('');
+    } else {
+      setIsComplete(true);
     }
   };
 
