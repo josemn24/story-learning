@@ -28,40 +28,16 @@ const StageChallenge = ({
 }: StageChallengeProps) => {
   const [hasSeenExplanation, setHasSeenExplanation] = useState(false);
 
-  if (!hasSeenExplanation && !isStageCompleted) {
-    return (
-      <div className="max-w-6xl mx-auto p-4 md:p-6">
-        <div className="bg-white rounded-lg shadow-lg p-8">
-          <div className="bg-gray-50 p-6 rounded-lg border border-gray-100">
-            <div className="text-center">
-              <h3 className="text-xl font-serif font-semibold text-gray-800 mb-4">Ready for the Challenge?</h3>
-              <p className="text-gray-600 mb-6">
-                To continue your journey through the story, you'll need to complete this challenge. 
-                It will help you understand and remember the key elements of this chapter.
-              </p>
-              <button
-                onClick={() => setHasSeenExplanation(true)}
-                className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
-              >
-                Start Challenge →
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="max-w-6xl mx-auto p-4 md:p-6">
       <div className="bg-white rounded-lg shadow-lg p-8">
-        <div className="bg-gray-50 p-6 rounded-lg border border-gray-100">
+        <div className="p-6">
           <div className="flex justify-between items-center mb-6">
             <h3 className="text-xl font-serif font-semibold text-gray-800">Checkpoint Challenge</h3>
           </div>
           <form onSubmit={onSubmit}>
             <div className="mb-6">
-              <p className="text-lg mb-4 text-gray-700">{stage.checkpoint.question}</p>
+              <p className="text-lg text-left mb-4 text-gray-700">{stage.checkpoint.question}</p>
               
               {isStageCompleted ? (
                 <div className="bg-green-50 p-4 rounded-lg border border-green-200">
@@ -120,12 +96,14 @@ const StageChallenge = ({
             )}
 
             {!isStageCompleted && (
-              <button
-                type="submit"
-                className="w-full px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
-              >
-                Submit Answer
-              </button>
+              <div className="flex justify-center sm:justify-end">
+                <button
+                  type="submit"
+                  className="w-full sm:w-auto px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
+                >
+                  Check
+                </button>
+              </div>
             )}
           </form>
 
@@ -160,6 +138,27 @@ const StageChallenge = ({
           </div>
         </div>
       </div>
+
+      {/* Explanation Modal */}
+      {!hasSeenExplanation && !isStageCompleted && (
+        <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)] flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+            <div className="text-center">
+              <h3 className="text-xl font-serif font-semibold text-gray-800 mb-4">Ready for the Challenge?</h3>
+              <p className="text-gray-600 mb-6">
+                To continue your journey through the story, you'll need to complete this challenge. 
+                It will help you understand and remember the key elements of this chapter.
+              </p>
+              <button
+                onClick={() => setHasSeenExplanation(true)}
+                className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700"
+              >
+                Start Challenge →
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
