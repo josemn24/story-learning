@@ -62,6 +62,7 @@ const StageContent = ({
         currentStage={currentStage}
         totalStages={totalStages}
         isNextDisabled={false}
+        isPreviousDisabled={currentStage === 0}
         nextButtonText={isStageCompleted ? 'View Solution →' : 'Next →'}
       />
     </div>
