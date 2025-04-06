@@ -2,42 +2,10 @@ import { useState } from 'react';
 import StageContent from './components/StageContent';
 import StageChallenge from './components/StageChallenge';
 import { StoryStage } from './types';
+import { second_story } from './stories';
 
 // Story content
-const storyStages: StoryStage[] = [
-  {
-    content: "You are an explorer who finds an ancient map in the jungle. It hints at a hidden treasure, but challenges lie ahead.",
-    checkpoint: {
-      type: 'short-answer',
-      question: "The map says the treasure is 200 meters north and 300 meters west. How far is it in a straight line?",
-      answer: 360,
-    },
-    image: {
-      src: "/images/stage1.png",
-      alt: "An ancient treasure map with mysterious markings"
-    }
-  },
-  {
-    content: "You decipher the map and continue your journey. Suddenly, you come across an ancient ruin with inscriptions on the walls.",
-    checkpoint: {
-      type: 'multiple-choice',
-      question: "The inscription is written in an ancient script. Which civilization is most known for its hieroglyphs?",
-      answer: "Egyptians",
-      options: ["Mayans", "Romans", "Egyptians", "Greeks"],
-    },
-    image: {
-      src: "/images/stage2.png",
-      alt: "Ancient ruins with hieroglyphic inscriptions"
-    }
-  },
-  {
-    content: "You move forward and discover a hidden chamber. The treasure lies ahead, but you take a moment to reflect on your journey.",
-    checkpoint: {
-      type: 'creative-writing',
-      question: "Write a short diary entry describing your adventure so far.",
-    },
-  },
-];
+const story: StoryStage[] = second_story;
 
 const StoryLearning = () => {
   const [currentStage, setCurrentStage] = useState(0);
@@ -48,7 +16,7 @@ const StoryLearning = () => {
   const [showChallenge, setShowChallenge] = useState(false);
 
   const validateAnswer = (answer: string) => {
-    const checkpoint = storyStages[currentStage].checkpoint;
+    const checkpoint = story[currentStage].checkpoint;
     let isCorrect: boolean;
     
     switch (checkpoint.type) {
@@ -95,7 +63,7 @@ const StoryLearning = () => {
   };
 
   const handleNextStage = () => {
-    if (currentStage < storyStages.length - 1) {
+    if (currentStage < story.length - 1) {
       setCurrentStage(prev => prev + 1);
       setShowChallenge(false);
       setUserAnswer('');
@@ -116,7 +84,7 @@ const StoryLearning = () => {
     );
   }
 
-  const currentStoryStage = storyStages[currentStage];
+  const currentStoryStage = story[currentStage];
   const isCurrentStageCompleted = isStageCompleted(currentStage);
 
   if (showChallenge) {
@@ -140,7 +108,7 @@ const StoryLearning = () => {
       onNext={handleStartChallenge}
       onPrevious={handlePreviousPage}
       currentStage={currentStage}
-      totalStages={storyStages.length}
+      totalStages={story.length}
       isStageCompleted={isCurrentStageCompleted}
     />
   );
