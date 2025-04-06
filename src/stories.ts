@@ -44,7 +44,7 @@ export const second_story: StoryStage[] = [
         answer: 100,
       },
       image: {
-        src: "/images/habichuelas1.png",
+        src: "/images/hmimage1.png",
         alt: "Una vaca lechera junto a una cabaña humilde"
       }
     },
@@ -57,7 +57,7 @@ export const second_story: StoryStage[] = [
         answer: "Cuento de hadas",
       },
       image: {
-        src: "/images/habichuelas2.png",
+        src: "/images/hmimage2.png",
         alt: "Una gigantesca planta que sube entre las nubes"
       }
     },
@@ -68,7 +68,7 @@ export const second_story: StoryStage[] = [
         question: "¿Qué harías tú en esa situación? Responde en una o dos frases usando conectores como 'aunque', 'porque' o 'sin embargo'.",
       },
       image: {
-        src: "/images/habichuelas3.png",
+        src: "/images/hmimage3.png",
         alt: "Un castillo gigante sobre las nubes"
       }
     },
@@ -81,7 +81,7 @@ export const second_story: StoryStage[] = [
         answer: "Hurto",
       },
       image: {
-        src: "/images/habichuelas4.png",
+        src: "/images/hmimage4.png",
         alt: "El ogro dormido junto a un montón de tesoros"
       }
     },
@@ -93,7 +93,7 @@ export const second_story: StoryStage[] = [
         answer: 350,
       },
       image: {
-        src: "/images/habichuelas5.png",
+        src: "/images/hmimage5.png",
         alt: "Un ganso dorado en una jaula brillante"
       }
     },
@@ -104,7 +104,7 @@ export const second_story: StoryStage[] = [
         question: "Escribe el final alternativo del cuento: ¿Qué habría pasado si Jack no hubiera cortado la planta?",
       },
       image: {
-        src: "/images/habichuelas6.png",
+        src: "/images/hmimage6.png",
         alt: "Jack cortando el tallo de la planta mientras el ogro cae"
       }
     }
