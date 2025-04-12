@@ -55,11 +55,11 @@ const StageContent = ({
             <div className="flex-1 p-6 md:p-8 border-t lg:border-t-0 border-gray-200">
               <div className="h-full flex flex-col justify-center">
                 {stage.image ? (
-                  <div className="relative w-full h-full">
+                  <div className="relative w-full pt-[75%]">
                     <img
                       src={stage.image.src}
                       alt={stage.image.alt}
-                      className="object-contain w-full h-full rounded-lg"
+                      className="absolute inset-0 w-full h-full object-contain"
                     />
                   </div>
                 ) : (
