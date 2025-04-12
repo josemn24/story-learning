@@ -1,5 +1,6 @@
 import { StoryStage } from '../types';
 import NavigationControls from './NavigationControls';
+import { MdArrowBack, MdArrowForward } from 'react-icons/md';
 
 interface StageContentProps {
   stage: StoryStage;
@@ -29,14 +30,16 @@ const StageContent = ({
         <button
           onClick={onPrevious}
           disabled={currentStage === 0}
-          className={`hidden xl:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 z-10 w-auto p-3 rounded-full border transition-colors ${
+          className={`hidden xl:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-16 z-10 w-auto p-3 rounded-full border transition-colors ${
             currentStage === 0
               ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
               : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200 cursor-pointer hover:scale-110'
           }`}
           aria-label="Previous page"
         >
-          <span className="text-xl">←</span>
+          <span className="text-xl">
+            <MdArrowBack size={24} />
+          </span>
         </button>
 
         {/* Book Content */}
@@ -74,14 +77,16 @@ const StageContent = ({
         {/* Next Button - Right Side */}
         <button
           onClick={onNext}
-          className={`hidden xl:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 z-10 w-auto p-3 rounded-full transition-colors ${
+          className={`hidden xl:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 w-auto p-3 rounded-full transition-colors ${
             isStageCompleted
               ? 'bg-green-600 text-white hover:bg-green-700'
               : 'bg-blue-600 text-white hover:bg-blue-700'
           } cursor-pointer hover:scale-110`}
           aria-label="Next page"
         >
-          <span className="text-xl">→</span>
+          <span className="text-xl">
+            <MdArrowForward size={24} />
+          </span>
         </button>
       </div>
 
