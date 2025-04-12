@@ -18,11 +18,11 @@ const NavigationControls = ({
   nextButtonText = "Next →",
 }: NavigationControlsProps) => {
   return (
-    <div className="flex flex-row justify-between lg:justify-center items-center gap-4 sm:gap-0">
+    <div className="flex flex-row justify-between xl:justify-center items-center gap-4 sm:gap-0">
       <button
         onClick={onPrevious}
         disabled={isPreviousDisabled}
-        className={`lg:hidden w-auto px-4 py-2 rounded-lg border transition-colors ${
+        className={`xl:hidden w-auto px-4 py-2 rounded-lg border transition-colors ${
           isPreviousDisabled
             ? "bg-gray-100 text-gray-400 cursor-not-allowed"
             : "bg-white text-gray-700 hover:bg-gray-50 border-gray-200 cursor-pointer"
@@ -41,7 +41,7 @@ const NavigationControls = ({
       <button
         onClick={onNext}
         disabled={isNextDisabled}
-        className={`lg:hidden w-auto px-4 py-2 rounded-lg transition-colors ${
+        className={`xl:hidden w-auto px-4 py-2 rounded-lg transition-colors ${
           isNextDisabled
             ? "bg-gray-100 text-gray-400 cursor-not-allowed"
             : "bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
