@@ -1,5 +1,6 @@
 import { StoryStage } from '../types';
 import { useState } from 'react';
+import NavigationControls from './NavigationControls';
 
 interface StageChallengeProps {
   stage: StoryStage;
@@ -31,7 +32,7 @@ const StageChallenge = ({
         {/* Previous Button - Left Side */}
         <button
           onClick={onPrevious}
-          className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-8 z-10 w-auto p-3 rounded-full border transition-colors bg-white text-gray-700 hover:bg-gray-50 border-gray-200 cursor-pointer hover:scale-110`}
+          className={`hidden lg:block absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 lg:-translate-x-8 z-10 w-auto p-3 rounded-full border transition-colors bg-white text-gray-700 hover:bg-gray-50 border-gray-200 cursor-pointer hover:scale-110`}
           aria-label="Previous page"
         >
           <span className="text-xl">←</span>
@@ -121,7 +122,7 @@ const StageChallenge = ({
         <button
           onClick={onNext}
           disabled={!isStageCompleted}
-          className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-8 z-10 w-auto p-3 rounded-full transition-colors ${
+          className={`hidden lg:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 lg:translate-x-8 z-10 w-auto p-3 rounded-full transition-colors ${
             isStageCompleted
               ? 'bg-green-600 text-white hover:bg-green-700 cursor-pointer hover:scale-110'
               : 'bg-gray-100 text-gray-400 cursor-not-allowed'
@@ -131,6 +132,15 @@ const StageChallenge = ({
           <span className="text-xl">→</span>
         </button>
       </div>
+
+      {/* Page Counter */}
+      <NavigationControls
+        onPrevious={onPrevious}
+        onNext={onNext}
+        isNextDisabled={!isStageCompleted}
+        isPreviousDisabled={false}
+        nextButtonText="Next Stage →"
+      />
 
       {/* Explanation Modal */}
       {!hasSeenExplanation && !isStageCompleted && (
