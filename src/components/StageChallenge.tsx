@@ -40,7 +40,7 @@ const StageChallenge = ({
 
         {/* Challenge Content */}
         <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
-          <div className="p-6">
+          <div className="p-6 h-full min-h-[520px]">
             <div className="flex justify-between items-center mb-6">
               <h3 className="text-xl font-semibold text-gray-800">Checkpoint Challenge</h3>
             </div>

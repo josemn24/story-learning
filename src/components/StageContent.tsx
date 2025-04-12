@@ -41,7 +41,7 @@ const StageContent = ({
 
         {/* Book Content */}
         <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
-          <div className="flex flex-col lg:flex-row">
+          <div className="flex flex-col lg:flex-row h-full min-h-[520px]">
             {/* Left Page - Story Content */}
             <div className="flex-1 p-6 lg:p-8">
               <div className="prose prose-lg">
