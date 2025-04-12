@@ -1,5 +1,4 @@
 import { StoryStage } from '../types';
-import NavigationControls from './NavigationControls';
 
 interface StageContentProps {
   stage: StoryStage;
@@ -23,48 +22,72 @@ const StageContent = ({
       {/* Title */}
       <h1 className="text-sm mb-6 md:mb-4 text-left text-gray-500">The Lost Explorer</h1>
       
-      {/* Book Layout */}
-      <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
-        <div className="flex flex-col md:flex-row">
-          {/* Left Page - Story Content */}
-          <div className="flex-1 p-6 md:p-8">
-            <div className="prose prose-lg">
-              <p className="text-lg leading-relaxed text-gray-700 text-left">{stage.content}</p>
+      {/* Book Layout with Navigation */}
+      <div className="relative mb-4">
+        {/* Previous Button - Left Side */}
+        <button
+          onClick={onPrevious}
+          disabled={currentStage === 0}
+          className={`absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-8 z-10 w-auto p-3 rounded-full border transition-colors ${
+            currentStage === 0
+              ? 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              : 'bg-white text-gray-700 hover:bg-gray-50 border-gray-200 cursor-pointer hover:scale-110'
+          }`}
+          aria-label="Previous page"
+        >
+          <span className="text-xl">←</span>
+        </button>
+
+        {/* Book Content */}
+        <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
+          <div className="flex flex-col md:flex-row">
+            {/* Left Page - Story Content */}
+            <div className="flex-1 p-6 md:p-8">
+              <div className="prose prose-lg">
+                <p className="text-lg leading-relaxed text-gray-700 text-left">{stage.content}</p>
+              </div>
             </div>
-          </div>
 
-          {/* Center Separator - Only visible on desktop */}
-          <div className="hidden md:block w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
+            {/* Center Separator - Only visible on desktop */}
+            <div className="hidden md:block w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
 
-          {/* Right Page - Image or Placeholder */}
-          <div className="flex-1 p-6 md:p-8 border-t lg:border-t-0 border-gray-200">
-            <div className="h-full flex flex-col justify-center">
-              {stage.image ? (
-                <div className="relative w-full h-full">
-                  <img
-                    src={stage.image.src}
-                    alt={stage.image.alt}
-                    className="object-contain w-full h-full rounded-lg"
-                  />
-                </div>
-              ) : (
-                <p className="text-gray-400 italic text-left">Turn the page to continue...</p>
-              )}
+            {/* Right Page - Image or Placeholder */}
+            <div className="flex-1 p-6 md:p-8 border-t lg:border-t-0 border-gray-200">
+              <div className="h-full flex flex-col justify-center">
+                {stage.image ? (
+                  <div className="relative w-full h-full">
+                    <img
+                      src={stage.image.src}
+                      alt={stage.image.alt}
+                      className="object-contain w-full h-full rounded-lg"
+                    />
+                  </div>
+                ) : (
+                  <p className="text-gray-400 italic text-left">Turn the page to continue...</p>
+                )}
+              </div>
             </div>
           </div>
         </div>
+
+        {/* Next Button - Right Side */}
+        <button
+          onClick={onNext}
+          className={`absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-8 z-10 w-auto p-3 rounded-full transition-colors ${
+            isStageCompleted
+              ? 'bg-green-600 text-white hover:bg-green-700'
+              : 'bg-blue-600 text-white hover:bg-blue-700'
+          } cursor-pointer hover:scale-110`}
+          aria-label="Next page"
+        >
+          <span className="text-xl">→</span>
+        </button>
       </div>
 
-      {/* Navigation Controls */}
-      <NavigationControls
-        onPrevious={onPrevious}
-        onNext={onNext}
-        currentStage={currentStage}
-        totalStages={totalStages}
-        isNextDisabled={false}
-        isPreviousDisabled={currentStage === 0}
-        nextButtonText={isStageCompleted ? 'View Solution →' : 'Next →'}
-      />
+      {/* Page Counter - Below */}
+      <div className="text-sm text-gray-500 italic text-center">
+        Page {currentStage + 1} of {totalStages}
+      </div>
     </div>
   );
 };
