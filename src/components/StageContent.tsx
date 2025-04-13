@@ -20,7 +20,7 @@ const StageContent = ({
   isStageCompleted,
 }: StageContentProps) => {
   return (
-    <div className="max-w-6xl mx-auto p-4 lg:p-6">
+    <div className="max-w-6xl mx-auto sm:p-4 lg:p-6">
       {/* Title */}
       <h1 className="text-sm mb-6 lg:mb-4 text-left text-gray-500">The Lost Explorer</h1>
       
@@ -44,7 +44,7 @@ const StageContent = ({
 
         {/* Book Content */}
         <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
-          <div className="flex flex-col lg:flex-row h-full min-h-[520px]">
+          <div className="flex flex-col lg:flex-row h-full lg:min-h-[520px]">
             {/* Left Page - Story Content */}
             <div className="flex-1 p-6 lg:p-8">
               <div className="prose prose-lg">
@@ -56,18 +56,18 @@ const StageContent = ({
             <div className="hidden lg:block w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
 
             {/* Right Page - Image or Placeholder */}
-            <div className="flex-1 p-6 lg:p-8 border-t lg:border-t-0 border-gray-200">
-              <div className="h-full flex flex-col justify-center items-center">
+            <div className="flex-1 flex justify-center items-center lg:pl-0.25 overflow-hidden">
                 {stage.image ? (
-                    <img
-                      src={stage.image.src}
-                      alt={stage.image.alt}
-                      className="object-contain rounded-lg max-h-110"
-                    />
+                  <img
+                    src={stage.image.src}
+                    alt={stage.image.alt}
+                    className="w-full h-full object-cover rounded-b-lg lg:rounded-tr-lg lg:rounded-l-none max-w-130 max-h-130"
+                  />
                 ) : (
-                  <p className="text-gray-400 italic text-left">Turn the page to continue...</p>
+                  <div className="h-full flex items-center justify-center p-6 lg:p-8">
+                    <p className="text-gray-400 italic">Turn the page to continue...</p>
+                  </div>
                 )}
-              </div>
             </div>
           </div>
         </div>

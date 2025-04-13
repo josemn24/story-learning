@@ -2,10 +2,10 @@ import { useState } from 'react';
 import StageContent from './components/StageContent';
 import StageChallenge from './components/StageChallenge';
 import { StoryStage } from './types';
-import { second_story } from './stories';
+import { third_story } from './stories';
 
 // Story content
-const story: StoryStage[] = second_story;
+const story: StoryStage[] = third_story;
 
 const StoryLearning = () => {
   const [currentStage, setCurrentStage] = useState(0);

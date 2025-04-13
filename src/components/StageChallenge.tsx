@@ -27,7 +27,7 @@ const StageChallenge = ({
   const [hasSeenExplanation, setHasSeenExplanation] = useState(false);
 
   return (
-    <div className="max-w-6xl mx-auto p-4 md:p-6">
+    <div className="max-w-6xl mx-auto sm:p-4 lg:p-6">
       {/* Challenge Layout with Navigation */}
       <div className="relative mb-4">
         {/* Previous Button - Left Side */}
