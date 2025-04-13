@@ -109,3 +109,72 @@ export const second_story: StoryStage[] = [
       }
     }
 ];
+
+export const third_story: StoryStage[] = [
+  {
+    content: "Tu madre te pide que lleves una cesta con comida a tu abuela, que está enferma. Te advierte que no hables con desconocidos y que no te salgas del camino del bosque.",
+    checkpoint: {
+      type: 'multiple-choice',
+      question: "¿Qué te pide tu mamá que no hagas?",
+      options: [
+        "Que no juegues con tu abuela",
+        "Que no hables con desconocidos",
+        "Que no lleves la cesta",
+        "Que no vayas por el camino del bosque"
+      ],
+      answer: "Que no hables con desconocidos",
+    },
+    image: {
+      src: "/images/capimage1.png",
+      alt: "Caperucita saliendo de casa con una cesta"
+    }
+  },
+  {
+    content: "Mientras caminas por el bosque, un lobo aparece y te pregunta a dónde vas. Le cuentas que vas a casa de tu abuela. El lobo toma un atajo para llegar antes que tú.",
+    checkpoint: {
+      type: 'short-answer',
+      question: "Si tú caminas 2 horas y el lobo corre solo 1 hora, pero va el doble de rápido que tú, ¿quién llega primero?",
+      answer: "El lobo",
+    },
+    image: {
+      src: "/images/capimage2.png",
+      alt: "Caperucita hablando con el lobo entre los árboles"
+    }
+  },
+  {
+    content: "El lobo llega a la casa, engaña a la abuela y se disfraza con su ropa. Cuando tú llegas, te parece que algo extraño ocurre.",
+    checkpoint: {
+      type: 'multiple-choice',
+      question: "¿Qué parte del cuerpo le pareció muy grande a Caperucita?",
+      options: ["Los pies", "Las manos", "Los ojos", "Las orejas"],
+      answer: "Los ojos",
+    },
+    image: {
+      src: "/images/capimage3.png",
+      alt: "El lobo disfrazado de abuela en la cama"
+    }
+  },
+  {
+    content: "El lobo intenta comerte, pero un leñador oye tus gritos y corre a ayudarte. Logra ahuyentar al lobo y salva a tu abuela.",
+    checkpoint: {
+      type: 'short-answer',
+      question: "El leñador corre 5 minutos a 200 metros por minuto. ¿Cuántos metros corrió en total?",
+      answer: 1000,
+    },
+    image: {
+      src: "/images/capimage4.png",
+      alt: "El leñador enfrentando al lobo"
+    }
+  },
+  {
+    content: "Tú y tu abuela están a salvo. Aprendiste una lección importante sobre la obediencia y los peligros del bosque.",
+    checkpoint: {
+      type: 'creative-writing',
+      question: "Escribe una nota a tu mamá contándole qué aprendiste y cómo te sentiste en el bosque.",
+    },
+    image: {
+      src: "/images/capimage5.png",
+      alt: "Caperucita y su abuela abrazadas junto a la chimenea"
+    }
+  }
+];
