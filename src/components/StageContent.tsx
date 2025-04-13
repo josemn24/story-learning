@@ -57,15 +57,13 @@ const StageContent = ({
 
             {/* Right Page - Image or Placeholder */}
             <div className="flex-1 p-6 lg:p-8 border-t lg:border-t-0 border-gray-200">
-              <div className="h-full flex flex-col justify-center">
+              <div className="h-full flex flex-col justify-center items-center">
                 {stage.image ? (
-                  <div className="relative w-full pt-[75%]">
                     <img
                       src={stage.image.src}
                       alt={stage.image.alt}
-                      className="absolute inset-0 w-full h-full object-contain"
+                      className="object-contain rounded-lg max-h-110"
                     />
-                  </div>
                 ) : (
                   <p className="text-gray-400 italic text-left">Turn the page to continue...</p>
                 )}
