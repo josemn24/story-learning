@@ -7,6 +7,11 @@ export interface Checkpoint {
   options?: string[];
 }
 
+export interface Story {
+  title: string;
+  description?: string;
+  stages: StoryStage[];
+}
 export interface StoryStage {
   content: string;
   checkpoint: Checkpoint;

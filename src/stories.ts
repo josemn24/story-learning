@@ -1,6 +1,6 @@
-import { StoryStage } from './types';
+import { Story, StoryStage } from './types';
 
-export const first_story: StoryStage[] = [
+const first_story_stages: StoryStage[] = [
     {
       content: "You are an explorer who finds an ancient map in the jungle. It hints at a hidden treasure, but challenges lie ahead.",
       checkpoint: {
@@ -35,7 +35,7 @@ export const first_story: StoryStage[] = [
     },
 ];
 
-export const second_story: StoryStage[] = [
+const second_story_stages: StoryStage[] = [
     {
       content: "Vives con tu madre en una cabaña humilde. Solo tienen una vaca lechera, pero como ella ha enfermado y no pueden trabajar, decides venderla para sobrevivir.",
       checkpoint: {
@@ -110,7 +110,7 @@ export const second_story: StoryStage[] = [
     }
 ];
 
-export const third_story: StoryStage[] = [
+const third_story_stages: StoryStage[] = [
   {
     content: "Tu madre te pide que lleves una cesta con comida a tu abuela, que está enferma. Te advierte que no hables con desconocidos y que no te salgas del camino del bosque.",
     checkpoint: {
@@ -178,3 +178,18 @@ export const third_story: StoryStage[] = [
     }
   }
 ];
+
+export const first_story: Story = {
+  title: 'The Lost Explorer',
+  stages: first_story_stages,
+}
+
+export const second_story: Story = {
+  title: 'Las habichuelas mágicas',
+  stages: second_story_stages,
+}
+
+export const third_story: Story = {
+  title: 'La Caperucita roja',
+  stages: third_story_stages,
+}
