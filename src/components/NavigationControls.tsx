@@ -34,7 +34,7 @@ const NavigationControls = ({
 
       {currentStage != null && totalStages != null && (
         <div className="text-sm text-gray-500 italic">
-          Page {currentStage + 1} of {totalStages}
+          Página {currentStage + 1} de {totalStages}
         </div>
       )}
 

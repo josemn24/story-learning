@@ -3,6 +3,7 @@ import StageContent from './components/StageContent';
 import StageChallenge from './components/StageChallenge';
 import { Story, StoryStage } from './types';
 import { third_story } from './stories';
+import Confetti from 'react-confetti';
 
 // Story content
 const story: Story = third_story;
@@ -15,6 +16,7 @@ const StoryLearning = () => {
   const [isComplete, setIsComplete] = useState(false);
   const [completedStages, setCompletedStages] = useState<number[]>([]);
   const [showChallenge, setShowChallenge] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
 
   const validateAnswer = (answer: string) => {
     const checkpoint = story_stages[currentStage].checkpoint;
@@ -71,6 +73,10 @@ const StoryLearning = () => {
       setError('');
     } else {
       setIsComplete(true);
+      setShowConfetti(true);
+      setTimeout(() => {
+        setShowConfetti(false); // Hide confetti after 5 seconds
+      }, 10000);
     }
   };
 
@@ -79,6 +85,7 @@ const StoryLearning = () => {
   if (isComplete) {
     return (
       <div className="max-w-6xl mx-auto p-6">
+        {showConfetti && <Confetti />} {/* Render confetti */}
         <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
           <div className="flex flex-col justify-center items-center h-full p-6 lg:min-h-[520px]">
             <h1 className="text-3xl font-bold text-green-600 mb-4">¡Enhorabuena!</h1>
