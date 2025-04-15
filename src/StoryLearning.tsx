@@ -124,6 +124,7 @@ const StoryLearning = () => {
       currentStage={currentStage}
       totalStages={story_stages.length}
       isStageCompleted={isCurrentStageCompleted}
+      layoutType={currentStoryStage.layoutType || 'text-left-image-right'}
     />
   );
 };

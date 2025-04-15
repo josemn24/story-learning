@@ -10,6 +10,7 @@ interface StageContentProps {
   currentStage: number;
   totalStages: number;
   isStageCompleted: boolean;
+  layoutType: 'text-left-image-right' | 'image-left-text-right' | 'text-left-right' | 'full-image';
 }
 
 const StageContent = ({
@@ -20,6 +21,7 @@ const StageContent = ({
   currentStage,
   totalStages,
   isStageCompleted,
+  layoutType,
 }: StageContentProps) => {
   return (
     <div className="max-w-6xl mx-auto sm:p-4 lg:p-6">
@@ -47,18 +49,62 @@ const StageContent = ({
         {/* Book Content */}
         <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
           <div className="flex flex-col lg:flex-row h-full lg:min-h-[520px]">
-            {/* Left Page - Story Content */}
-            <div className="flex-1 p-6 lg:p-8">
-              <div className="prose prose-lg">
-                <p className="text-lg leading-relaxed text-gray-700 text-left">{stage.content}</p>
+            {/* Conditional Rendering Based on layoutType */}
+            {layoutType === 'text-left-image-right' && (
+              <>
+                <div className="flex-1 p-6 lg:p-8">
+                  <div className="prose prose-lg">
+                    <p className="text-lg leading-relaxed text-gray-700 text-left">{stage.content}</p>
+                  </div>
+                </div>
+                <div className="hidden lg:block w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
+                <div className="flex-1 flex justify-center items-center lg:pl-0.25 overflow-hidden">
+                  {stage.image ? (
+                    <img
+                      src={stage.image.src}
+                      alt={stage.image.alt}
+                      className="w-full h-full object-cover rounded-b-lg lg:rounded-tr-lg lg:rounded-l-none max-w-130 max-h-130"
+                    />
+                  ) : (
+                    <div className="h-full flex items-center justify-center p-6 lg:p-8">
+                      <p className="text-gray-400 italic">Turn the page to continue...</p>
+                    </div>
+                  )}
+                </div>
+              </>
+            )}
+            {layoutType === 'image-left-text-right' && (
+              <>
+                <div className="flex-1 flex justify-center items-center lg:pr-0.25 overflow-hidden">
+                  {stage.image ? (
+                    <img
+                      src={stage.image.src}
+                      alt={stage.image.alt}
+                      className="w-full h-full object-cover rounded-b-lg lg:rounded-tr-lg lg:rounded-l-none max-w-130 max-h-130"
+                    />
+                  ) : (
+                    <div className="h-full flex items-center justify-center p-6 lg:p-8">
+                      <p className="text-gray-400 italic">Turn the page to continue...</p>
+                    </div>
+                  )}
+                </div>
+                <div className="hidden lg:block w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
+                <div className="flex-1 p-6 lg:p-8">
+                  <div className="prose prose-lg">
+                    <p className="text-lg leading-relaxed text-gray-700 text-left">{stage.content}</p>
+                  </div>
+                </div>
+              </>
+            )}
+            {layoutType === 'text-left-right' && (
+              <div className="flex-1 p-6 lg:p-8">
+                <div className="prose prose-lg">
+                  <p className="text-lg leading-relaxed text-gray-700 text-left">{stage.content}</p>
+                </div>
               </div>
-            </div>
-
-            {/* Center Separator - Only visible on desktop */}
-            <div className="hidden lg:block w-[2px] bg-gray-200 mx-[-1px] shadow-sm"></div>
-
-            {/* Right Page - Image or Placeholder */}
-            <div className="flex-1 flex justify-center items-center lg:pl-0.25 overflow-hidden">
+            )}
+            {layoutType === 'full-image' && (
+              <div className="flex-1 flex justify-center items-center overflow-hidden">
                 {stage.image ? (
                   <img
                     src={stage.image.src}
@@ -70,7 +116,8 @@ const StageContent = ({
                     <p className="text-gray-400 italic">Turn the page to continue...</p>
                   </div>
                 )}
-            </div>
+              </div>
+            )}
           </div>
         </div>
 

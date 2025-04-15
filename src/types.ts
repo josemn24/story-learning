@@ -1,5 +1,7 @@
 export type QuestionType = 'multiple-choice' | 'short-answer' | 'creative-writing';
 
+export type BookLayoutType = 'text-left-image-right' | 'image-left-text-right' | 'text-left-right' | 'full-image';
+
 export interface Checkpoint {
   type: QuestionType;
   question: string;
@@ -19,4 +21,5 @@ export interface StoryStage {
     src: string;
     alt: string;
   };
+  layoutType: BookLayoutType;
 }

@@ -11,7 +11,8 @@ const first_story_stages: StoryStage[] = [
       image: {
         src: "/images/stage1.png",
         alt: "An ancient treasure map with mysterious markings"
-      }
+      },
+      layoutType: 'text-left-image-right'
     },
     {
       content: "You decipher the map and continue your journey. Suddenly, you come across an ancient ruin with inscriptions on the walls.",
@@ -24,7 +25,8 @@ const first_story_stages: StoryStage[] = [
       image: {
         src: "/images/stage2.png",
         alt: "Ancient ruins with hieroglyphic inscriptions"
-      }
+      },
+      layoutType: 'text-left-image-right'
     },
     {
       content: "You move forward and discover a hidden chamber. The treasure lies ahead, but you take a moment to reflect on your journey.",
@@ -32,6 +34,7 @@ const first_story_stages: StoryStage[] = [
         type: 'creative-writing',
         question: "Write a short diary entry describing your adventure so far.",
       },
+      layoutType: 'text-left-image-right'
     },
 ];
 
@@ -46,7 +49,8 @@ const second_story_stages: StoryStage[] = [
       image: {
         src: "/images/hmimage1.png",
         alt: "Una vaca lechera junto a una cabaña humilde"
-      }
+      },
+      layoutType: 'text-left-image-right'
     },
     {
       content: "En lugar de venderla, intercambias la vaca por unas semillas mágicas. Tu madre se enoja y las lanza por la ventana. Por la mañana, descubres una enorme planta que crece hasta el cielo.",
@@ -59,7 +63,8 @@ const second_story_stages: StoryStage[] = [
       image: {
         src: "/images/hmimage2.png",
         alt: "Una gigantesca planta que sube entre las nubes"
-      }
+      },
+      layoutType: 'text-left-image-right'
     },
     {
       content: "Subes por la planta y llegas a un castillo en las nubes. Una mujer gigante te dice que su esposo es un ogro que come niños.",
@@ -70,7 +75,8 @@ const second_story_stages: StoryStage[] = [
       image: {
         src: "/images/hmimage3.png",
         alt: "Un castillo gigante sobre las nubes"
-      }
+      },
+      layoutType: 'text-left-image-right'
     },
     {
       content: "El ogro llega. La mujer te esconde en el horno. El ogro huele que hay un niño, pero ella lo engaña. Luego, él se duerme y tú robas una bolsa de oro.",
@@ -83,7 +89,8 @@ const second_story_stages: StoryStage[] = [
       image: {
         src: "/images/hmimage4.png",
         alt: "El ogro dormido junto a un montón de tesoros"
-      }
+      },
+      layoutType: 'text-left-image-right'
     },
     {
       content: "Vuelves a casa y vives un tiempo con lo robado, pero luego decides regresar por el ganso de los huevos de oro.",
@@ -95,7 +102,8 @@ const second_story_stages: StoryStage[] = [
       image: {
         src: "/images/hmimage5.png",
         alt: "Un ganso dorado en una jaula brillante"
-      }
+      },
+      layoutType: 'text-left-image-right'
     },
     {
       content: "Subes una vez más por la planta y robas el arpa mágica. El ogro te persigue y logras llegar a casa. Cortas la planta y el ogro cae para siempre.",
@@ -106,7 +114,8 @@ const second_story_stages: StoryStage[] = [
       image: {
         src: "/images/hmimage6.png",
         alt: "Jack cortando el tallo de la planta mientras el ogro cae"
-      }
+      },
+      layoutType: 'text-left-image-right'
     }
 ];
 
@@ -127,7 +136,8 @@ const third_story_stages: StoryStage[] = [
     image: {
       src: "/images/capimage1.png",
       alt: "Caperucita saliendo de casa con una cesta"
-    }
+    },
+    layoutType: 'text-left-image-right'
   },
   {
     content: "Mientras caminas por el bosque, un lobo aparece y te pregunta a dónde vas. Le cuentas que vas a casa de tu abuela. El lobo toma un atajo para llegar antes que tú.",
@@ -139,7 +149,8 @@ const third_story_stages: StoryStage[] = [
     image: {
       src: "/images/capimage2.png",
       alt: "Caperucita hablando con el lobo entre los árboles"
-    }
+    },
+    layoutType: 'text-left-image-right'
   },
   {
     content: "El lobo llega a la casa, engaña a la abuela y se disfraza con su ropa. Cuando tú llegas, te parece que algo extraño ocurre.",
@@ -152,7 +163,8 @@ const third_story_stages: StoryStage[] = [
     image: {
       src: "/images/capimage3.png",
       alt: "El lobo disfrazado de abuela en la cama"
-    }
+    },
+    layoutType: 'text-left-image-right'
   },
   {
     content: "El lobo intenta comerte, pero un leñador oye tus gritos y corre a ayudarte. Logra ahuyentar al lobo y salva a tu abuela.",
@@ -164,7 +176,8 @@ const third_story_stages: StoryStage[] = [
     image: {
       src: "/images/capimage4.png",
       alt: "El leñador enfrentando al lobo"
-    }
+    },
+    layoutType: 'text-left-image-right'
   },
   {
     content: "Tú y tu abuela están a salvo. Aprendiste una lección importante sobre la obediencia y los peligros del bosque.",
@@ -175,7 +188,8 @@ const third_story_stages: StoryStage[] = [
     image: {
       src: "/images/capimage5.png",
       alt: "Caperucita y su abuela abrazadas junto a la chimenea"
-    }
+    },
+    layoutType: 'text-left-image-right'
   }
 ];
 
