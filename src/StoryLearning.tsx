@@ -77,9 +77,13 @@ const StoryLearning = () => {
 
   if (isComplete) {
     return (
-      <div className="max-w-6xl mx-auto p-6 bg-white rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-green-600 mb-4">Congratulations!</h1>
-        <p className="text-lg">You've completed the story and all its challenges!</p>
+      <div className="max-w-6xl mx-auto p-6">
+        <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
+          <div className="flex flex-col justify-center items-center h-full p-6 lg:min-h-[520px]">
+            <h1 className="text-3xl font-bold text-green-600 mb-4">Congratulations!</h1>
+            <p className="text-lg">You've completed the story and all its challenges!</p>
+          </div>
+        </div>
       </div>
     );
   }

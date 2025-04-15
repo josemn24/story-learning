@@ -1,7 +1,7 @@
-import { StoryStage } from '../types';
-import { useState } from 'react';
-import NavigationControls from './NavigationControls';
-import { MdArrowBack, MdArrowForward } from 'react-icons/md';
+import { StoryStage } from "../types";
+import { useState } from "react";
+import NavigationControls from "./NavigationControls";
+import { MdArrowBack, MdArrowForward, MdLock } from "react-icons/md";
 
 interface StageChallengeProps {
   stage: StoryStage;
@@ -28,6 +28,9 @@ const StageChallenge = ({
 
   return (
     <div className="max-w-6xl mx-auto sm:p-4 lg:p-6">
+      {/* Title */}
+      <h1 className="text-sm mb-6 lg:mb-4 text-left text-gray-500">The Lost Explorer</h1>
+
       {/* Challenge Layout with Navigation */}
       <div className="relative mb-4">
         {/* Previous Button - Left Side */}
@@ -41,85 +44,128 @@ const StageChallenge = ({
           </span>
         </button>
 
-        {/* Challenge Content */}
-        <div className="bg-white rounded-lg shadow-lg p-8 mb-6">
-          <div className="p-6 h-full min-h-[520px]">
-            <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-semibold text-gray-800">Checkpoint Challenge</h3>
-            </div>
-            <form onSubmit={onSubmit}>
-              <div className="mb-6">
-                <p className="text-lg text-left mb-4 text-gray-700">{stage.checkpoint.question}</p>
-                
-                {isStageCompleted ? (
-                  <div className="bg-green-50 p-4 rounded-lg border border-green-200">
-                    <div className="flex items-center mb-2">
-                      <span className="text-green-600 mr-2">✓</span>
-                      <span className="text-green-700 font-medium">Correct Answer:</span>
-                    </div>
-                    <div className="text-gray-700">
-                      {stage.checkpoint.type === 'multiple-choice' ? (
-                        <p>{stage.checkpoint.answer}</p>
-                      ) : stage.checkpoint.type === 'short-answer' ? (
-                        <p>{stage.checkpoint.answer}</p>
-                      ) : (
-                        <p className="italic">Your creative writing response has been recorded.</p>
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  <>
-                    {stage.checkpoint.type === 'multiple-choice' && (
-                      <div className="space-y-3">
-                        {stage.checkpoint.options?.map((option) => (
-                          <label key={option} className="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer transition-colors">
-                            <input
-                              type="radio"
-                              name="answer"
-                              value={option}
-                              checked={userAnswer === option}
-                              onChange={(e) => setUserAnswer(e.target.value)}
-                              className="mr-3"
-                            />
-                            <span className="text-gray-700">{option}</span>
-                          </label>
-                        ))}
-                      </div>
-                    )}
-
-                    {(stage.checkpoint.type === 'short-answer' || 
-                      stage.checkpoint.type === 'creative-writing') && (
-                      <textarea
-                        value={userAnswer}
-                        onChange={(e) => setUserAnswer(e.target.value)}
-                        className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-transparent"
-                        rows={stage.checkpoint.type === 'creative-writing' ? 6 : 2}
-                        placeholder={stage.checkpoint.type === 'creative-writing' 
-                          ? "Write your story here..."
-                          : "Enter your answer"}
-                      />
-                    )}
-                  </>
-                )}
-              </div>
-
-              {error && !isStageCompleted && (
-                <div className="text-red-500 mb-4 p-3 bg-red-50 rounded-lg">{error}</div>
-              )}
-
-              {!isStageCompleted && (
-                <div className="flex justify-center sm:justify-end">
-                  <button
-                    type="submit"
-                    className="w-full sm:w-auto px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
-                  >
-                    Check Answer
-                  </button>
+        {/* Explanation Content */}
+        {!hasSeenExplanation && !isStageCompleted && (
+          <div className="bg-white rounded-lg shadow-xl mb-6">
+            <div className="p-6 lg:p-8 h-full lg:min-h-[520px] flex justify-center items-center">
+              <div className="text-center max-w-md mx-auto">
+                <div className="flex justify-center">
+                  <MdLock size={128} className="mb-4 text-gray-600" />
                 </div>
-              )}
-            </form>
+                <p className="text-gray-600 mb-6">
+                  To continue your journey through the story, you'll need to
+                  complete a challenge. It will help you understand and
+                  remember the key elements of this chapter.
+                </p>
+                <button
+                  onClick={() => setHasSeenExplanation(true)}
+                  className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+                >
+                  Start Challenge →
+                </button>
+              </div>
+            </div>
           </div>
-        </div>
+        )}
+
+        {/* Challenge Content */}
+        {(hasSeenExplanation || isStageCompleted) && (
+          <div className="bg-white rounded-lg shadow-lg mb-6">
+            <div className="p-6 lg:p-8 h-full lg:min-h-[520px]">
+              <div className="flex justify-between items-center mb-6">
+                <h3 className="text-xl font-semibold text-gray-800">
+                  Checkpoint Challenge
+                </h3>
+              </div>
+              <form onSubmit={onSubmit}>
+                <div className="mb-6">
+                  <p className="text-lg text-left mb-4 text-gray-700">
+                    {stage.checkpoint.question}
+                  </p>
+
+                  {isStageCompleted ? (
+                    <div className="bg-green-50 p-4 rounded-lg border border-green-200">
+                      <div className="flex items-center mb-2">
+                        <span className="text-green-600 mr-2">✓</span>
+                        <span className="text-green-700 font-medium">
+                          Correct Answer:
+                        </span>
+                      </div>
+                      <div className="text-gray-700">
+                        {stage.checkpoint.type === "multiple-choice" ? (
+                          <p>{stage.checkpoint.answer}</p>
+                        ) : stage.checkpoint.type === "short-answer" ? (
+                          <p>{stage.checkpoint.answer}</p>
+                        ) : (
+                          <p className="italic">
+                            Your creative writing response has been recorded.
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <>
+                      {stage.checkpoint.type === "multiple-choice" && (
+                        <div className="space-y-3">
+                          {stage.checkpoint.options?.map((option) => (
+                            <label
+                              key={option}
+                              className="flex items-center p-3 bg-white rounded-lg border border-gray-200 hover:border-blue-300 cursor-pointer transition-colors"
+                            >
+                              <input
+                                type="radio"
+                                name="answer"
+                                value={option}
+                                checked={userAnswer === option}
+                                onChange={(e) => setUserAnswer(e.target.value)}
+                                className="mr-3"
+                              />
+                              <span className="text-gray-700">{option}</span>
+                            </label>
+                          ))}
+                        </div>
+                      )}
+
+                      {(stage.checkpoint.type === "short-answer" ||
+                        stage.checkpoint.type === "creative-writing") && (
+                        <textarea
+                          value={userAnswer}
+                          onChange={(e) => setUserAnswer(e.target.value)}
+                          className="w-full p-3 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-300 focus:border-transparent"
+                          rows={
+                            stage.checkpoint.type === "creative-writing" ? 6 : 2
+                          }
+                          placeholder={
+                            stage.checkpoint.type === "creative-writing"
+                              ? "Write your story here..."
+                              : "Enter your answer"
+                          }
+                        />
+                      )}
+                    </>
+                  )}
+                </div>
+
+                {error && !isStageCompleted && (
+                  <div className="text-red-500 mb-4 p-3 bg-red-50 rounded-lg">
+                    {error}
+                  </div>
+                )}
+
+                {!isStageCompleted && (
+                  <div className="flex justify-center sm:justify-end">
+                    <button
+                      type="submit"
+                      className="w-full sm:w-auto px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
+                    >
+                      Check Answer
+                    </button>
+                  </div>
+                )}
+              </form>
+            </div>
+          </div>
+        )}
 
         {/* Next Button - Right Side */}
         <button
@@ -127,8 +173,8 @@ const StageChallenge = ({
           disabled={!isStageCompleted}
           className={`hidden xl:block absolute right-0 top-1/2 -translate-y-1/2 translate-x-16 z-10 w-auto p-3 rounded-full transition-colors ${
             isStageCompleted
-              ? 'bg-green-600 text-white hover:bg-green-700 cursor-pointer hover:scale-110'
-              : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+              ? "bg-green-600 text-white hover:bg-green-700 cursor-pointer hover:scale-110"
+              : "bg-gray-100 text-gray-400 cursor-not-allowed"
           }`}
           aria-label="Next page"
         >
@@ -146,27 +192,6 @@ const StageChallenge = ({
         isPreviousDisabled={false}
         nextButtonText="Next Stage →"
       />
-
-      {/* Explanation Modal */}
-      {!hasSeenExplanation && !isStageCompleted && (
-        <div className="fixed inset-0 bg-[rgba(0,0,0,0.5)] flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
-            <div className="text-center">
-              <h3 className="text-xl font-semibold text-gray-800 mb-4">Ready for the Challenge?</h3>
-              <p className="text-gray-600 mb-6">
-                To continue your journey through the story, you'll need to complete this challenge. 
-                It will help you understand and remember the key elements of this chapter.
-              </p>
-              <button
-                onClick={() => setHasSeenExplanation(true)}
-                className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
-              >
-                Start Challenge →
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
   );
 };
