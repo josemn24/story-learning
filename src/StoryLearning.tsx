@@ -1,11 +1,12 @@
 import { useState } from 'react';
 import StageContent from './components/StageContent';
 import StageChallenge from './components/StageChallenge';
-import { StoryStage } from './types';
+import { Story, StoryStage } from './types';
 import { third_story } from './stories';
 
 // Story content
-const story: StoryStage[] = third_story;
+const story: Story = third_story;
+const story_stages: StoryStage[] = story.stages;
 
 const StoryLearning = () => {
   const [currentStage, setCurrentStage] = useState(0);
@@ -16,7 +17,7 @@ const StoryLearning = () => {
   const [showChallenge, setShowChallenge] = useState(false);
 
   const validateAnswer = (answer: string) => {
-    const checkpoint = story[currentStage].checkpoint;
+    const checkpoint = story_stages[currentStage].checkpoint;
     let isCorrect: boolean;
     
     switch (checkpoint.type) {
@@ -63,7 +64,7 @@ const StoryLearning = () => {
   };
 
   const handleNextStage = () => {
-    if (currentStage < story.length - 1) {
+    if (currentStage < story_stages.length - 1) {
       setCurrentStage(prev => prev + 1);
       setShowChallenge(false);
       setUserAnswer('');
@@ -80,20 +81,21 @@ const StoryLearning = () => {
       <div className="max-w-6xl mx-auto p-6">
         <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
           <div className="flex flex-col justify-center items-center h-full p-6 lg:min-h-[520px]">
-            <h1 className="text-3xl font-bold text-green-600 mb-4">Congratulations!</h1>
-            <p className="text-lg">You've completed the story and all its challenges!</p>
+            <h1 className="text-3xl font-bold text-green-600 mb-4">¡Enhorabuena!</h1>
+            <p className="text-lg">¡Has completado el cuento y todos sus desafíos!</p>
           </div>
         </div>
       </div>
     );
   }
 
-  const currentStoryStage = story[currentStage];
+  const currentStoryStage = story_stages[currentStage];
   const isCurrentStageCompleted = isStageCompleted(currentStage);
 
   if (showChallenge) {
     return (
       <StageChallenge
+        storyTitle={story.title}
         stage={currentStoryStage}
         onNext={handleNextStage}
         onPrevious={() => setShowChallenge(false)}
@@ -108,11 +110,12 @@ const StoryLearning = () => {
 
   return (
     <StageContent
+      storyTitle={story.title}
       stage={currentStoryStage}
       onNext={handleStartChallenge}
       onPrevious={handlePreviousPage}
       currentStage={currentStage}
-      totalStages={story.length}
+      totalStages={story_stages.length}
       isStageCompleted={isCurrentStageCompleted}
     />
   );

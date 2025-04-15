@@ -3,6 +3,7 @@ import NavigationControls from './NavigationControls';
 import { MdArrowBack, MdArrowForward } from 'react-icons/md';
 
 interface StageContentProps {
+  storyTitle: string;
   stage: StoryStage;
   onNext: () => void;
   onPrevious: () => void;
@@ -12,6 +13,7 @@ interface StageContentProps {
 }
 
 const StageContent = ({
+  storyTitle,
   stage,
   onNext,
   onPrevious,
@@ -22,7 +24,7 @@ const StageContent = ({
   return (
     <div className="max-w-6xl mx-auto sm:p-4 lg:p-6">
       {/* Title */}
-      <h1 className="text-sm mb-6 lg:mb-4 text-left text-gray-500">The Lost Explorer</h1>
+      <h1 className="text-sm mb-6 lg:mb-4 text-left text-gray-500">{ storyTitle }</h1>
       
       {/* Book Layout with Navigation */}
       <div className="relative mb-4">
@@ -96,7 +98,7 @@ const StageContent = ({
         totalStages={totalStages}
         isNextDisabled={false}
         isPreviousDisabled={currentStage === 0}
-        nextButtonText={isStageCompleted ? 'View Solution →' : 'Next →'}
+        nextButtonText={isStageCompleted ? 'Ver Solución →' : 'Siguiente →'}
       />
     </div>
   );

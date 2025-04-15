@@ -4,6 +4,7 @@ import NavigationControls from "./NavigationControls";
 import { MdArrowBack, MdArrowForward, MdLock } from "react-icons/md";
 
 interface StageChallengeProps {
+  storyTitle: string;
   stage: StoryStage;
   onNext: () => void;
   onPrevious: () => void;
@@ -15,6 +16,7 @@ interface StageChallengeProps {
 }
 
 const StageChallenge = ({
+  storyTitle,
   stage,
   onNext,
   onPrevious,
@@ -29,7 +31,7 @@ const StageChallenge = ({
   return (
     <div className="max-w-6xl mx-auto sm:p-4 lg:p-6">
       {/* Title */}
-      <h1 className="text-sm mb-6 lg:mb-4 text-left text-gray-500">The Lost Explorer</h1>
+      <h1 className="text-sm mb-6 lg:mb-4 text-left text-gray-500">{ storyTitle }</h1>
 
       {/* Challenge Layout with Navigation */}
       <div className="relative mb-4">
@@ -53,15 +55,14 @@ const StageChallenge = ({
                   <MdLock size={128} className="mb-4 text-gray-600" />
                 </div>
                 <p className="text-gray-600 mb-6">
-                  To continue your journey through the story, you'll need to
-                  complete a challenge. It will help you understand and
-                  remember the key elements of this chapter.
+                  Para continuar tu recorrido por la historia, tendrás que completar un desafío.
+                  Esto te ayudará a comprender y recordar los elementos clave de este capítulo.
                 </p>
                 <button
                   onClick={() => setHasSeenExplanation(true)}
                   className="px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
                 >
-                  Start Challenge →
+                  Empezar desafío →
                 </button>
               </div>
             </div>
@@ -74,7 +75,7 @@ const StageChallenge = ({
             <div className="p-6 lg:p-8 h-full lg:min-h-[520px]">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-semibold text-gray-800">
-                  Checkpoint Challenge
+                  Desafío
                 </h3>
               </div>
               <form onSubmit={onSubmit}>
@@ -98,7 +99,7 @@ const StageChallenge = ({
                           <p>{stage.checkpoint.answer}</p>
                         ) : (
                           <p className="italic">
-                            Your creative writing response has been recorded.
+                            Su respuesta de escritura creativa ha sido guardada.
                           </p>
                         )}
                       </div>
@@ -158,7 +159,7 @@ const StageChallenge = ({
                       type="submit"
                       className="w-full sm:w-auto px-6 py-3 rounded-lg transition-colors font-medium bg-blue-600 text-white hover:bg-blue-700 cursor-pointer"
                     >
-                      Check Answer
+                      Comprobar
                     </button>
                   </div>
                 )}
@@ -190,7 +191,7 @@ const StageChallenge = ({
         onNext={onNext}
         isNextDisabled={!isStageCompleted}
         isPreviousDisabled={false}
-        nextButtonText="Next Stage →"
+        nextButtonText="Siguiente →"
       />
     </div>
   );

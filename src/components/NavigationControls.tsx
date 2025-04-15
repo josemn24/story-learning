@@ -29,7 +29,7 @@ const NavigationControls = ({
         }`}
       >
         <span className="sm:hidden">←</span>
-        <span className="hidden sm:inline">← Previous</span>
+        <span className="hidden sm:inline">← Volver</span>
       </button>
 
       {currentStage != null && totalStages != null && (
