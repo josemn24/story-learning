@@ -1,98 +1,132 @@
-import { useState } from "react";
+import { useState } from 'react';
+import StageContent from './components/StageContent';
+import StageChallenge from './components/StageChallenge';
+import { Story, StoryStage } from './types';
+import { third_story } from './stories';
+import Confetti from 'react-confetti';
 
-const storyStages = [
-  {
-    text: "Lena and Jake were cleaning Grandma’s attic when Jake’s foot hit something. \"What’s this?\" he asked, pulling out an old, dusty envelope from under a wooden chest.\n\nLena carefully opened the letter and read aloud:\n\n‘If you seek adventure and a prize so neat, follow the path to Willow Creek.\nLook for the oak with roots so wide, where secrets in the hollow hide.’\n\n\"Wow!\" Jake exclaimed. \"This sounds like a treasure hunt!\"\n\nLena nodded excitedly. \"We have to find that oak tree!\"",
-    checkpoint: {
-      question: "Where do Lena and Jake need to go to start their adventure?",
-      answer: "Willow Creek",
-      type: "text",
-    },
-  },
-  {
-    text: "The kids arrived at Willow Creek and searched for the biggest oak tree.\n\"This one has the widest roots!\" Jake said, pointing.\n\nCarved into the bark were two numbers: 42 and 58. Below it, an arrow pointed down to the hollow.\n\nLena thought for a moment. \"I think we need to solve a math problem to open the next clue!\"",
-    checkpoint: {
-      question: "Add the two numbers carved on the tree. What is the sum?",
-      answer: "100",
-      type: "number",
-    },
-  },
-  {
-    text: "Inside the hollow, they found a single feather tied to another note:\n\n‘Follow the owner of this feather, swift and bright,\nWhere it nests, you’ll find the next sight.’\n\nJake looked at the feather. \"I think this came from a bird!\"\n\nLena nodded. \"But which one? We need to figure out which bird is swift and bright!\"",
-    checkpoint: {
-      question: "Which bird is known for being fast and colorful?",
-      answer: "Hummingbird",
-      type: "text",
-    },
-  },
-  {
-    text: "The kids followed the hummingbirds to a small wooden house near the creek. Inside, they found an old box filled with postcards, a compass, and a golden locket. The last note read:\n\n‘The real treasure isn’t gold, but the stories we share and the adventures we dare!’\n\nLena smiled. \"This belonged to my great-grandfather! He must have hidden it here years ago!\"",
-    checkpoint: {
-      question: "Write a short letter to your best friend about your own treasure hunt adventure. What would you say?",
-      answer: "*any*",
-      type: "textarea",
-    },
-  },
-];
+// Story content
+const story: Story = third_story;
+const story_stages: StoryStage[] = story.stages;
 
-function StoryLearningApp() {
+const StoryLearning = () => {
   const [currentStage, setCurrentStage] = useState(0);
-  const [userAnswer, setUserAnswer] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  
-  const handleSubmit = () => {
-    const checkpoint = storyStages[currentStage].checkpoint;
+  const [userAnswer, setUserAnswer] = useState('');
+  const [error, setError] = useState('');
+  const [isComplete, setIsComplete] = useState(false);
+  const [completedStages, setCompletedStages] = useState<number[]>([]);
+  const [showChallenge, setShowChallenge] = useState(false);
+  const [showConfetti, setShowConfetti] = useState(false);
+
+  const validateAnswer = (answer: string) => {
+    const checkpoint = story_stages[currentStage].checkpoint;
+    let isCorrect: boolean;
     
-    if (checkpoint.type === "textarea" || userAnswer.trim().toLowerCase() === checkpoint.answer.toLowerCase()) {
-      setCurrentStage(currentStage + 1);
-      setUserAnswer("");
-      setError(null);
-    } else {
-      setError("Incorrect answer. Try again.");
+    switch (checkpoint.type) {
+      case 'multiple-choice':
+      case 'short-answer':
+        isCorrect = String(answer).toLowerCase() === String(checkpoint.answer).toLowerCase();
+        if (!isCorrect) {
+          setError('That\'s not quite right. Try again!');
+          return false;
+        }
+        break;
+      case 'creative-writing':
+        // Any input is valid for creative writing
+        if (answer.trim().length < 10) {
+          setError('Please write a bit more!');
+          return false;
+        }
+        break;
+    }
+    return true;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+
+    if (validateAnswer(userAnswer)) {
+      setCompletedStages(prev => [...prev, currentStage]);
+      setError('');
     }
   };
-  
-  return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-200 p-6">
-      <div className="bg-white shadow-lg rounded-lg p-8 max-w-4xl w-full flex flex-col md:flex-row">
-        {currentStage < storyStages.length ? (
-          <>
-            <div className="w-full md:w-1/2 p-4 border-r border-gray-300">
-              <h2 className="text-xl font-bold mb-4">Story</h2>
-              <p className="text-lg">{storyStages[currentStage].text}</p>
-            </div>
-            <div className="w-full md:w-1/2 p-4">
-              <h2 className="text-xl font-bold mb-4">Checkpoint</h2>
-              <p className="font-semibold mb-2">{storyStages[currentStage].checkpoint.question}</p>
-              {storyStages[currentStage].checkpoint.type === "textarea" ? (
-                <textarea
-                  className="w-full p-2 border rounded mt-2"
-                  value={userAnswer}
-                  onChange={(e) => setUserAnswer(e.target.value)}
-                />
-              ) : (
-                <input
-                  type="text"
-                  className="w-full p-2 border rounded mt-2"
-                  value={userAnswer}
-                  onChange={(e) => setUserAnswer(e.target.value)}
-                />
-              )}
-              {error && <p className="text-red-500 mt-2">{error}</p>}
-              <button
-                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700"
-                onClick={handleSubmit}
-              >
-                Submit
-              </button>
-            </div>
-          </>
-        ) : (
-          <h2 className="text-xl font-bold text-center w-full">Congratulations! You completed the story.</h2>
-        )}
-      </div>
-    </div>
-  );
-}
 
-export default StoryLearningApp;
+  const handlePreviousPage = () => {
+    if (currentStage > 0) {
+      setCurrentStage(prev => prev - 1);
+      setShowChallenge(true);
+      setUserAnswer('');
+      setError('');
+    }
+  };
+
+  const handleStartChallenge = () => {
+    setShowChallenge(true);
+  };
+
+  const handleNextStage = () => {
+    if (currentStage < story_stages.length - 1) {
+      setCurrentStage(prev => prev + 1);
+      setShowChallenge(false);
+      setUserAnswer('');
+      setError('');
+    } else {
+      setIsComplete(true);
+      setShowConfetti(true);
+      setTimeout(() => {
+        setShowConfetti(false); // Hide confetti after 5 seconds
+      }, 10000);
+    }
+  };
+
+  const isStageCompleted = (stage: number) => completedStages.includes(stage);
+
+  if (isComplete) {
+    return (
+      <div className="max-w-6xl mx-auto p-6">
+        {showConfetti && <Confetti />} {/* Render confetti */}
+        <div className="bg-white rounded-lg shadow-lg mb-6 lora-400">
+          <div className="flex flex-col justify-center items-center h-full p-6 lg:min-h-[520px]">
+            <h1 className="text-3xl font-bold text-green-600 mb-4">¡Enhorabuena!</h1>
+            <p className="text-lg">¡Has completado el cuento y todos sus desafíos!</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  const currentStoryStage = story_stages[currentStage];
+  const isCurrentStageCompleted = isStageCompleted(currentStage);
+
+  if (showChallenge) {
+    return (
+      <StageChallenge
+        storyTitle={story.title}
+        stage={currentStoryStage}
+        onNext={handleNextStage}
+        onPrevious={() => setShowChallenge(false)}
+        onSubmit={handleSubmit}
+        isStageCompleted={isCurrentStageCompleted}
+        userAnswer={userAnswer}
+        setUserAnswer={setUserAnswer}
+        error={error}
+      />
+    );
+  }
+
+  return (
+    <StageContent
+      storyTitle={story.title}
+      stage={currentStoryStage}
+      onNext={handleStartChallenge}
+      onPrevious={handlePreviousPage}
+      currentStage={currentStage}
+      totalStages={story_stages.length}
+      isStageCompleted={isCurrentStageCompleted}
+      layoutType={currentStoryStage.layoutType || 'text-left-image-right'}
+    />
+  );
+};
+
+export default StoryLearning;

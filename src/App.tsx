@@ -1,11 +1,11 @@
 import './App.css'
-import StoryLearningApp from './StoryLearning'
+import StoryLearning from './StoryLearning'
 
 function App() {
   return (
-    <>
-      <StoryLearningApp />
-    </>
+    <div className="min-h-screen bg-gray-50">
+      <StoryLearning />
+    </div>
   )
 }
 
